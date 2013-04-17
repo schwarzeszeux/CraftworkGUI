@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64"
+   height="64"
+   id="svg3108"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="New document 8">
+  <defs
+     id="defs3110" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="12.203125"
+     inkscape:cx="32"
+     inkscape:cy="34.189457"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="998"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3113">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-988.36218)">
+    <path
+       sodipodi:type="arc"
+       style="fill:#ff6600;fill-opacity:1;stroke:none"
+       id="path3122"
+       sodipodi:cx="31.262484"
+       sodipodi:cy="31.180538"
+       sodipodi:rx="29.869398"
+       sodipodi:ry="29.541613"
+       d="m 61.131882,31.180538 a 29.869398,29.541613 0 1 1 -59.7387965,0 29.869398,29.541613 0 1 1 59.7387965,0 z"
+       transform="translate(0,988.36218)" />
+    <path
+       transform="matrix(0.95336077,0,0,0.95977809,1.3351398,989.37047)"
+       sodipodi:type="arc"
+       style="fill:#ff7f2a;fill-opacity:1;stroke:none"
+       id="path3122-8"
+       sodipodi:cx="31.262484"
+       sodipodi:cy="31.180538"
+       sodipodi:rx="29.869398"
+       sodipodi:ry="29.541613"
+       d="m 61.131882,31.180538 a 29.869398,29.541613 0 1 1 -59.7387965,0 29.869398,29.541613 0 1 1 59.7387965,0 z" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff6600;fill-opacity:1;stroke:none"
+       id="path3146"
+       sodipodi:sides="3"
+       sodipodi:cx="28.681177"
+       sodipodi:cy="28.763124"
+       sodipodi:r1="20.757643"
+       sodipodi:r2="10.378822"
+       sodipodi:arg1="2.1051225"
+       sodipodi:arg2="3.15232"
+       inkscape:flatsided="true"
+       inkscape:rounded="0.05"
+       inkscape:randomized="0"
+       d="M 18.110114,46.6274 C 16.563022,45.71192 16.929416,11.558257 18.495792,10.676177 20.062167,9.794097 49.456909,27.188235 49.437626,28.985796 49.418342,30.783357 19.657206,47.542881 18.110114,46.6274 z"
+       transform="translate(1.5569778,991.96781)"
+       inkscape:transform-center-x="-4.5969032"
+       inkscape:transform-center-y="-0.10947069" />
+    <path
+       sodipodi:type="star"
+       style="fill:#f2f2f2;fill-opacity:1;stroke:none"
+       id="path3146-2"
+       sodipodi:sides="3"
+       sodipodi:cx="28.681177"
+       sodipodi:cy="28.763124"
+       sodipodi:r1="20.757643"
+       sodipodi:r2="10.378822"
+       sodipodi:arg1="2.1051225"
+       sodipodi:arg2="3.15232"
+       inkscape:flatsided="true"
+       inkscape:rounded="0.05"
+       inkscape:randomized="0"
+       d="M 18.110114,46.6274 C 16.563022,45.71192 16.929416,11.558257 18.495792,10.676177 20.062167,9.794097 49.456909,27.188235 49.437626,28.985796 49.418342,30.783357 19.657206,47.542881 18.110114,46.6274 z"
+       transform="matrix(0.90872075,0,0,0.87714822,4.3408238,995.3516)"
+       inkscape:transform-center-x="-4.1773012"
+       inkscape:transform-center-y="-0.096016455" />
+  </g>
+</svg>
