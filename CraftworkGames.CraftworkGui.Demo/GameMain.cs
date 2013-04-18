@@ -43,6 +43,7 @@ namespace CraftworkGames.CraftworkGui.Test
             textureAtlas.AddRegion("cross", 192, 64, 64, 64);
             textureAtlas.AddRegion("pause", 256, 0, 64, 64);
             textureAtlas.AddRegion("reset", 256, 64, 64, 64);
+            textureAtlas.AddRegion("box", 496, 0, 16, 16);
 
             _gui = new MonoGameGuiManager(GraphicsDevice, Content);
             _gui.LoadContent(new GuiContent(textureAtlas, "ExampleFont.fnt", "ExampleFont_0.png"));
@@ -69,23 +70,23 @@ namespace CraftworkGames.CraftworkGui.Test
             };
             layer.Controls.Add(_moneyLabel);
 
-            var playButton = new Button() 
-            { 
-                NormalStyle = new VisualStyle("play"),
-                HoverStyle = new VisualStyle("play") 
-                { 
-                    Scale = new Vector2(1.05f, 1.05f),
-                },
-                PressedStyle = new VisualStyle("play")
-                {
-                    Scale = new Vector2(0.95f, 0.95f),
-                },
-                X = 400,
-                Y = 240,
-                Width = 128,
-                Height = 128
+            var dockLayout = new DockLayout()
+            {
+                Width = layer.Width,
+                Height = layer.Height,
             };
-            layer.Controls.Add(playButton);
+
+
+            dockLayout.Controls.Add(new DockItem(CreateButton("box", 64, 64, Color.Red), DockStyle.Left));
+            dockLayout.Controls.Add(new DockItem(CreateButton("box", 64, 64, Color.Green), DockStyle.Right));
+            dockLayout.Controls.Add(new DockItem(CreateButton("box", 64, 64, Color.Blue), DockStyle.Top));
+            dockLayout.Controls.Add(new DockItem(CreateButton("box", 64, 64, Color.Yellow), DockStyle.Bottom));
+            dockLayout.Controls.Add(new DockItem(CreateButton("box", 64, 64, Color.Magenta), DockStyle.Fill));
+
+
+            dockLayout.PerformLayout();
+
+            layer.Controls.Add(dockLayout);
 
 
             _gui.Layers.Add(layer);
@@ -96,28 +97,21 @@ namespace CraftworkGames.CraftworkGui.Test
 
         }
 
-        private Button CreateButton(string text, int x, int y)
+        private Button CreateButton(string textureRegionName, int width, int height, Color colour)
         {
             var button = new Button() 
             { 
-                NormalStyle = new VisualStyle("button"),
-                HoverStyle = new VisualStyle("button") 
+                NormalStyle = new VisualStyle(textureRegionName) { BackColour = colour },
+                HoverStyle = new VisualStyle(textureRegionName) 
                 { 
-                    BackColour = Color.LightGray, 
-                    ForeColour = Color.LightGray,
+                    Scale = new Vector2(1.05f, 1.05f),
                 },
-                PressedStyle = new VisualStyle("button")
+                PressedStyle = new VisualStyle(textureRegionName)
                 {
-                    BackColour = Color.Gray, 
-                    ForeColour = Color.Gray,
-                    Effect = SpriteEffects.FlipVertically,
                     Scale = new Vector2(0.95f, 0.95f),
                 },
-                Text = text,
-                X = x,
-                Y = y,
-                Width = 256,
-                Height = 64
+                Width = width,
+                Height = height
             };
 
             return button;

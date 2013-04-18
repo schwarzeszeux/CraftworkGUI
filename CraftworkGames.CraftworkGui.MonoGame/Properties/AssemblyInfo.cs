@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("CraftworkGames.CraftworkGui.MonoGame")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("An open source GUI system for MonoGame")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("Dad")]
+[assembly: AssemblyCompany("Craftwork Games")]
+[assembly: AssemblyProduct("CraftworkGUI")]
+[assembly: AssemblyCopyright("Copyright © 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
