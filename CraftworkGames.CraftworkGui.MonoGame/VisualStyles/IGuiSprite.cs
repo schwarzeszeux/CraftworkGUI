@@ -30,17 +30,20 @@ SOFTWARE.
 
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public interface IDrawManager
+    public interface IGuiSprite
     {
-        void StartBatch();
-        void EndBatch();
-        void DrawTexture(string textureName, IRectangle destinationRectangle);
-        void Draw(IGuiSprite sprite, IRectangle destinationRectangle);
-        void Draw(string textureRegionName, IRectangle destinationRectangle);
-        void DrawText(string text, IRectangle destinationRectangle, IGuiSprite style);
+        string TextureRegionName { get; }
+        Color BackColour { get; }
+        Color ForeColour { get; }
+        float Rotation { get; }
+        Vector2 Origin { get; }
+        Vector2 Scale { get; }
+        SpriteEffects Effect { get; }
+        float Depth { get; set; }
     }
+    
 }
-

@@ -36,26 +36,26 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 {
 	public class Border
 	{
-		public Border(Rectangle rectangle, int thickness, int x, int y)
+        public Border(int x, int y, int width, int height, int thickness)
 		{
 			var bw = thickness;
 			var bh = thickness;
-			var rx = rectangle.Width - bw;
-			var by = rectangle.Height - bh;
+			var rx = width - bw;
+			var by = height - bh;
 
 			TopLeft = new Rectangle(x, y, bw, bh);
 			TopRight = new Rectangle(x + rx, y, bw, bh);
 			BottomLeft = new Rectangle(x, y + by, bw, bh);
 			BottomRight = new Rectangle(x + rx, y + by, bw, bh);
-			Left = new Rectangle(x, y + bh, bw, rectangle.Height - bh * 2);
-			Right = new Rectangle(x + rx, y + bh, bw, rectangle.Height - bh * 2);
-			Top = new Rectangle(x + bw, y, rectangle.Width - bw * 2, bh);
-			Bottom = new Rectangle(x + bw, y + by, rectangle.Width - bw * 2, bh);
-			Centre = new Rectangle(x + bw, y + bh, rectangle.Width - bw * 2, rectangle.Height - bh * 2);
+            Left = new Rectangle(x, y + bh, bw, height - bh * 2);
+            Right = new Rectangle(x + rx, y + bh, bw, height - bh * 2);
+            Top = new Rectangle(x + bw, y, width - bw * 2, bh);
+            Bottom = new Rectangle(x + bw, y + by, width - bw * 2, bh);
+            Centre = new Rectangle(x + bw, y + bh, width - bw * 2, height - bh * 2);
 		}
 
-		public Border(Rectangle rectangle, int thickness)
-			: this(rectangle, thickness, rectangle.X, rectangle.Y)
+		public Border(IRectangle rectangle, int thickness)
+			: this(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, thickness)
 		{
 		}
 

@@ -17,7 +17,7 @@ namespace CraftworkGames.CraftworkGui
         public Account Account { get; private set; }
         public Product Production { get; private set; }
 
-        private float _incrementDelay = 2.1f;
+        private float _incrementDelay = 1.0f;
         private float _timeRemaining = 0;
         public bool Update(float deltaTime)
         { 

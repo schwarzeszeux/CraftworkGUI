@@ -34,7 +34,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public class VisualStyle : ISprite
+    public class VisualStyle : IGuiSprite
     {
         public VisualStyle()
             : this(null)

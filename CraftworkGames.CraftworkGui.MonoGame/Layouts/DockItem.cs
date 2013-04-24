@@ -29,18 +29,23 @@ SOFTWARE.
 #endregion License
 
 using System;
-using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public interface IDrawManager
-    {
-        void StartBatch();
-        void EndBatch();
-        void DrawTexture(string textureName, IRectangle destinationRectangle);
-        void Draw(IGuiSprite sprite, IRectangle destinationRectangle);
-        void Draw(string textureRegionName, IRectangle destinationRectangle);
-        void DrawText(string text, IRectangle destinationRectangle, IGuiSprite style);
-    }
-}
 
+    public class DockItem
+    {
+        public DockItem(Control control, DockStyle dockStyle)
+        {
+            Control = control;
+            DockStyle = dockStyle;
+        }
+
+        public DockStyle DockStyle { get; set; }
+        public Control Control { get; private set; }
+    }
+    
+}

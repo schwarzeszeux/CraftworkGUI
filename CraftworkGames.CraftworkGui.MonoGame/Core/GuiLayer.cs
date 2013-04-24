@@ -39,7 +39,16 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         {
             Width = width;
             Height = height;
-            Controls = new List<Control>();
+            Controls = new EventList<Control>();
+            Controls.ItemAdded += Controls_ItemAdded;
+        }
+
+        private void Controls_ItemAdded (object sender, ItemEventArgs<Control> e)
+        {
+            var layoutControl = e.Item as LayoutControl;
+
+            if(layoutControl != null)
+                layoutControl.PerformLayout();
         }
 
         public int X { get { return 0; } }
@@ -48,7 +57,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         public int Height { get; private set; }
 
         public string BackgroundName { get; set; }
-        public List<Control> Controls { get; private set; }
+        public EventList<Control> Controls { get; private set; }
 
         public void Update(IUpdateManager updateManager, float deltaTime)
         {

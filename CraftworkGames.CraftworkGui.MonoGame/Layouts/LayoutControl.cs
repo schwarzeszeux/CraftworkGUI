@@ -26,6 +26,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+using Microsoft.Xna.Framework;
+
+
 #endregion License
 
 using System;
@@ -37,11 +40,52 @@ namespace CraftworkGames.CraftworkGui.MonoGame
     {
         public LayoutControl()
         {
+            HorizontalAlignment = HorizontalAlignment.Stretch;
+            VerticalAlignment = VerticalAlignment.Stretch;
         }
 
         public abstract void PerformLayout();
 
         protected abstract IEnumerable<Control> GetControls();
+
+        protected void AlignControl(Control control, Rectangle rectangle)
+        {
+            switch(control.HorizontalAlignment)
+            {
+                case HorizontalAlignment.Left:
+                    control.X = rectangle.X;
+                    break;
+                case HorizontalAlignment.Right:
+                    control.X = rectangle.X + rectangle.Width - control.Width;
+                    break;
+                case HorizontalAlignment.Stretch:
+                    control.X = rectangle.X;
+                    control.Width = rectangle.Width;
+                    break;
+                case HorizontalAlignment.Centre:
+                    var halfWidth = rectangle.Width / 2;
+                    control.X = rectangle.X + halfWidth - control.Width / 2;
+                    break;
+            }
+
+            switch(control.VerticalAlignment)
+            {
+                case VerticalAlignment.Top:
+                    control.Y = rectangle.Y;
+                    break;
+                case VerticalAlignment.Bottom:
+                    control.Y = rectangle.Y + rectangle.Height - control.Height;
+                    break;
+                case VerticalAlignment.Stretch:
+                    control.Y = rectangle.Y;
+                    control.Height = rectangle.Height;
+                    break;
+                case VerticalAlignment.Centre:
+                    var halfHeight = rectangle.Height / 2;
+                    control.Y = rectangle.Y + halfHeight - control.Height / 2;
+                    break;
+            }
+        }
 
         public override void Update(IUpdateManager updateManager, float deltaTime)
         {

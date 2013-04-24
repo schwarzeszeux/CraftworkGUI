@@ -63,8 +63,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 			if(Clicked != null)
 				Clicked(this, EventArgs.Empty);
 		}
-
-		private int _borderThickness = 4;
+        		
 		private const float _repeatDelay = 0.18f;
 		private float _remainingRepeatDelay = _repeatDelay;
 

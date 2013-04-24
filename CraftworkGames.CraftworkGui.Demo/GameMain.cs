@@ -45,6 +45,16 @@ namespace CraftworkGames.CraftworkGui.Test
             textureAtlas.AddRegion("reset", 256, 64, 64, 64);
             textureAtlas.AddRegion("box", 496, 0, 16, 16);
 
+            textureAtlas.AddRegion("topLeft", 0, 128, 13, 13);
+            textureAtlas.AddRegion("top", 13, 128, 10, 13);
+            textureAtlas.AddRegion("topRight", 23, 128, 13, 13);
+            textureAtlas.AddRegion("left", 0, 141, 13, 10);
+            textureAtlas.AddRegion("centre", 13, 141, 10, 10);
+            textureAtlas.AddRegion("right", 23, 141, 13, 10);
+            textureAtlas.AddRegion("bottomLeft", 0, 151, 13, 13);
+            textureAtlas.AddRegion("bottom", 13, 151, 10, 13);
+            textureAtlas.AddRegion("bottomRight", 23, 151, 13, 13);
+
             _gui = new MonoGameGuiManager(GraphicsDevice, Content);
             _gui.LoadContent(new GuiContent(textureAtlas, "ExampleFont.fnt", "ExampleFont_0.png"));
             _gui.LoadTexture("Background.png");
@@ -70,6 +80,7 @@ namespace CraftworkGames.CraftworkGui.Test
             };
             layer.Controls.Add(_moneyLabel);
 
+
             var dockLayout = new DockLayout()
             {
                 Width = layer.Width,
@@ -77,17 +88,42 @@ namespace CraftworkGames.CraftworkGui.Test
             };
 
 
-            dockLayout.Controls.Add(new DockItem(CreateButton("box", 64, 64, Color.Red), DockStyle.Left));
-            dockLayout.Controls.Add(new DockItem(CreateButton("box", 64, 64, Color.Green), DockStyle.Right));
-            dockLayout.Controls.Add(new DockItem(CreateButton("box", 64, 64, Color.Blue), DockStyle.Top));
-            dockLayout.Controls.Add(new DockItem(CreateButton("box", 64, 64, Color.Yellow), DockStyle.Bottom));
-            dockLayout.Controls.Add(new DockItem(CreateButton("box", 64, 64, Color.Magenta), DockStyle.Fill));
+            var d0 = new DockItem(CreateButton("cross", 64, 64), DockStyle.Left);
+            d0.Control.VerticalAlignment = VerticalAlignment.Bottom;
 
-
-            dockLayout.PerformLayout();
+            dockLayout.Controls.Add(d0);
+            dockLayout.Controls.Add(new DockItem(CreateButton("up", 64, 64), DockStyle.Right));
+            dockLayout.Controls.Add(new DockItem(CreateButton("cog", 64, 64), DockStyle.Top));
+            var d1 = new DockItem(CreateButton("tick", 64, 64), DockStyle.Bottom);
+            d1.Control.HorizontalAlignment = HorizontalAlignment.Right;
+            dockLayout.Controls.Add(d1);
+            dockLayout.Controls.Add(new DockItem(CreateButton("play", 128, 128), DockStyle.Fill));
 
             layer.Controls.Add(dockLayout);
 
+            var style = new BorderedVisualStyle(10)
+            {
+                TopLeftRegion = "topLeft",
+                TopRegion = "top",
+                TopRightRegion = "topRight",
+                LeftRegion = "left",
+                CentreRegion = "centre",
+                RightRegion = "right",
+                BottomLeftRegion = "bottomLeft",
+                BottomRegion = "bottom",
+                BottomRightRegion = "bottomRight",
+            };
+
+            var borderedButton = new Button(style)
+            {
+                X = 50,
+                Y = 100,
+                Width = 700,
+                Height = 60,
+                Text = "The bordered visual style can be any size"
+            };
+
+            layer.Controls.Add(borderedButton);
 
             _gui.Layers.Add(layer);
         }
@@ -95,6 +131,11 @@ namespace CraftworkGames.CraftworkGui.Test
         private void SellButton_Clicked (object sender, EventArgs e)
         {
 
+        }
+
+        private Button CreateButton(string textureRegionName, int width, int height)
+        {
+            return CreateButton(textureRegionName, width, height, Color.White);
         }
 
         private Button CreateButton(string textureRegionName, int width, int height, Color colour)
@@ -111,7 +152,7 @@ namespace CraftworkGames.CraftworkGui.Test
                     Scale = new Vector2(0.95f, 0.95f),
                 },
                 Width = width,
-                Height = height
+                Height = height,
             };
 
             return button;

@@ -76,8 +76,8 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         public abstract void EndBatch();
         public abstract void DrawTexture(string textureName, IRectangle destinationRectangle);
         public abstract void Draw(string textureRegionName, IRectangle destinationRectangle);
-        public abstract void Draw(ISprite sprite, IRectangle destinationRectangle);
-        public abstract void DrawText(string text, IRectangle destinationRectangle, ISprite style);
+        public abstract void Draw(IGuiSprite sprite, IRectangle destinationRectangle);
+        public abstract void DrawText(string text, IRectangle destinationRectangle, IGuiSprite style);
 
         internal abstract void ReadInputState();
         public abstract bool IsInputPressed { get; }

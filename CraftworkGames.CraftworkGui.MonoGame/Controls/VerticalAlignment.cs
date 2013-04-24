@@ -30,17 +30,15 @@ SOFTWARE.
 
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public interface IDrawManager
+    public enum VerticalAlignment
     {
-        void StartBatch();
-        void EndBatch();
-        void DrawTexture(string textureName, IRectangle destinationRectangle);
-        void Draw(IGuiSprite sprite, IRectangle destinationRectangle);
-        void Draw(string textureRegionName, IRectangle destinationRectangle);
-        void DrawText(string text, IRectangle destinationRectangle, IGuiSprite style);
-    }
+        Top,
+        Centre,
+        Bottom,
+        Stretch
+    }    
 }
-

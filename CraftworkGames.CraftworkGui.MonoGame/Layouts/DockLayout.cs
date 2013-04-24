@@ -35,27 +35,6 @@ using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public enum DockStyle
-    {
-        Left,
-        Top,
-        Right,
-        Bottom, 
-        Fill
-    }
-
-    public class DockItem
-    {
-        public DockItem(Control control, DockStyle dockStyle)
-        {
-            Control = control;
-            DockStyle = dockStyle;
-        }
-
-        public DockStyle DockStyle { get; set; }
-        public Control Control { get; private set; }
-    }
-
     public class DockLayout : LayoutControl
     {
         public DockLayout()
@@ -67,7 +46,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         public override void PerformLayout()
         {
-            var rectangle = new Rectangle(X, Y, Width, Height);
+            var dockArea = new Rectangle(X, Y, Width, Height);
 
             foreach(var dockItem in Controls.Where(c => c.DockStyle != DockStyle.Fill))
             {
@@ -76,30 +55,22 @@ namespace CraftworkGames.CraftworkGui.MonoGame
                 switch(dockItem.DockStyle)
                 {
                     case DockStyle.Left:
-                        control.X = rectangle.X;
-                        control.Y = rectangle.Y;
-                        control.Height = rectangle.Height;
-                        rectangle.X += control.Width;
-                        rectangle.Width -= control.Width;
+                        AlignControl(control, new Rectangle(dockArea.X, dockArea.Y, control.Width, dockArea.Height));
+                        dockArea.X += control.Width;
+                        dockArea.Width -= control.Width;
                         break;
                     case DockStyle.Right:
-                        control.X = rectangle.X + rectangle.Width - control.Width;
-                        control.Y = rectangle.Y;
-                        control.Height = rectangle.Height;
-                        rectangle.Width -= control.Width;
+                        AlignControl(control, new Rectangle(dockArea.X + dockArea.Width - control.Width, dockArea.Y, control.Width, dockArea.Height));
+                        dockArea.Width -= control.Width;
                         break;
                     case DockStyle.Top:
-                        control.X = rectangle.X;
-                        control.Y = rectangle.Y;
-                        control.Width = rectangle.Width;
-                        rectangle.Y += control.Height;
-                        rectangle.Height -= control.Height;
+                        AlignControl(control, new Rectangle(dockArea.X, dockArea.Y, dockArea.Width, control.Height));
+                        dockArea.Y += control.Height;
+                        dockArea.Height -= control.Height;
                         break;
                     case DockStyle.Bottom:
-                        control.X = rectangle.X;
-                        control.Y = rectangle.Y + rectangle.Height - control.Height;
-                        control.Width = rectangle.Width;
-                        rectangle.Height -= control.Height;
+                        AlignControl(control, new Rectangle(dockArea.X, dockArea.Y + dockArea.Height - control.Height, dockArea.Width, control.Height));
+                        dockArea.Height -= control.Height;
                         break;
                 }
             }
@@ -107,10 +78,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             foreach(var dockItem in Controls.Where(c => c.DockStyle == DockStyle.Fill))
             {
                 var control = dockItem.Control;
-                control.X = rectangle.X;
-                control.Y = rectangle.Y;
-                control.Width = rectangle.Width;
-                control.Height = rectangle.Height;
+                AlignControl(control, new Rectangle(dockArea.X, dockArea.Y, dockArea.Width, dockArea.Height));
             }
         }
 

@@ -96,7 +96,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             Draw(textureRegion, destinationRectangle);
         }
 
-        public override void Draw(ISprite sprite, IRectangle destinationRectangle)
+        public override void Draw(IGuiSprite sprite, IRectangle destinationRectangle)
         {
             var textureRegion = TextureAtlas.GetRegion(sprite.TextureRegionName) as TextureRegion;
             var texture = _textureMap[textureRegion.TextureAtlas.TextureName];
@@ -132,7 +132,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             }
         }
 
-        public override void DrawText(string text, IRectangle destinationRectangle, ISprite style)
+        public override void DrawText(string text, IRectangle destinationRectangle, IGuiSprite style)
         {
             var destRectangle = ToRectangle(destinationRectangle);
             var size = _fontRenderer.MeasureText(text);
@@ -146,7 +146,9 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         private SpriteBatch _spriteBatch;
         public override void StartBatch()
         {
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, 
+                               SamplerState.AnisotropicClamp, DepthStencilState.Default, 
+                               RasterizerState.CullNone, null, Matrix.CreateScale(1));
         }
 
         public override void EndBatch()
