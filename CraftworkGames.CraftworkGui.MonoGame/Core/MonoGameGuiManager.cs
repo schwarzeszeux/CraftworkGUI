@@ -73,9 +73,26 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         }
 
+        public override event ItemEventHandler<Keys> KeyPressed;
+
         internal override void ReadInputState()
         {
+            var previousKeys = _keyboardState.GetPressedKeys();
+
             _mouseState = Mouse.GetState();
+            _keyboardState = Keyboard.GetState();
+
+            if(previousKeys != null)
+            {
+                foreach(var key in previousKeys)
+                {
+                    if(_keyboardState.IsKeyUp(key))
+                    {
+                        if(KeyPressed != null)
+                            KeyPressed(this, new ItemEventArgs<Keys>(key));
+                    }
+                }
+            }
         }
 
         private Rectangle ToRectangle(IRectangle rectangle)
@@ -157,12 +174,21 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         }
 
         private MouseState _mouseState;
+        private KeyboardState _keyboardState;
 
         public override bool IsInputPressed
         {
             get
             {
                 return _mouseState.LeftButton == ButtonState.Pressed;
+            }
+        }
+
+        public override bool IsShiftDown
+        {
+            get
+            {
+                return _keyboardState.IsKeyDown(Keys.LeftShift) || _keyboardState.IsKeyDown(Keys.RightShift);
             }
         }
 

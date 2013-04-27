@@ -13,9 +13,8 @@ namespace CraftworkGames.CraftworkGui.Test
         private GraphicsDeviceManager _graphicsDeviceManager;
         private SpriteBatch _spriteBatch;
         private GuiManager _gui;
-        private TradingGame _tradingGame = new TradingGame();
         private Label _moneyLabel;
-        private Label _productionLabel;
+        private GridLayout _gridLayout;
 
         public GameMain()
         {
@@ -45,15 +44,10 @@ namespace CraftworkGames.CraftworkGui.Test
             textureAtlas.AddRegion("reset", 256, 64, 64, 64);
             textureAtlas.AddRegion("box", 496, 0, 16, 16);
 
-            textureAtlas.AddRegion("topLeft", 0, 128, 13, 13);
-            textureAtlas.AddRegion("top", 13, 128, 10, 13);
-            textureAtlas.AddRegion("topRight", 23, 128, 13, 13);
-            textureAtlas.AddRegion("left", 0, 141, 13, 10);
-            textureAtlas.AddRegion("centre", 13, 141, 10, 10);
-            textureAtlas.AddRegion("right", 23, 141, 13, 10);
-            textureAtlas.AddRegion("bottomLeft", 0, 151, 13, 13);
-            textureAtlas.AddRegion("bottom", 13, 151, 10, 13);
-            textureAtlas.AddRegion("bottomRight", 23, 151, 13, 13);
+            textureAtlas.AddRegion("red", 0, 164, 128, 111);
+            textureAtlas.AddRegion("blue", 0, 276, 128, 111);
+            textureAtlas.AddRegion("square", 128, 164, 128, 128);
+            textureAtlas.AddRegion("greenSquare", 256, 164, 128, 128);
 
             _gui = new MonoGameGuiManager(GraphicsDevice, Content);
             _gui.LoadContent(new GuiContent(textureAtlas, "ExampleFont.fnt", "ExampleFont_0.png"));
@@ -62,24 +56,14 @@ namespace CraftworkGames.CraftworkGui.Test
             var layer = new GuiLayer(800, 480);
             layer.BackgroundName = "Background.png";
 
-            _productionLabel = new Label()
-            {
-                X = 0,
-                Y = 0,
-                Width = 200,
-                Height = 32
-            };
-            layer.Controls.Add(_productionLabel);
-
             _moneyLabel = new Label()
             {
                 X = 600,
                 Y = 0,
                 Width = 200,
-                Height = 32
+                Height = 32,
+                HorizontalAlignment = HorizontalAlignment.Right
             };
-            layer.Controls.Add(_moneyLabel);
-
 
             var dockLayout = new DockLayout()
             {
@@ -87,45 +71,39 @@ namespace CraftworkGames.CraftworkGui.Test
                 Height = layer.Height,
             };
 
+            _gridLayout = new GridLayout(5, 8);
 
-            var d0 = new DockItem(CreateButton("cross", 64, 64), DockStyle.Left);
-            d0.Control.VerticalAlignment = VerticalAlignment.Bottom;
+            for(int x = 0; x < _gridLayout.Columns; x++)
+            {
+                for(int y = 0; y < _gridLayout.Rows; y++)
+                {
+                    var image = new Image() 
+                    { 
+                        NormalStyle = new VisualStyle("square"), 
+                        Width = 80, 
+                        Height = 80 
+                    };
 
-            dockLayout.Controls.Add(d0);
-            dockLayout.Controls.Add(new DockItem(CreateButton("up", 64, 64), DockStyle.Right));
-            dockLayout.Controls.Add(new DockItem(CreateButton("cog", 64, 64), DockStyle.Top));
-            var d1 = new DockItem(CreateButton("tick", 64, 64), DockStyle.Bottom);
-            d1.Control.HorizontalAlignment = HorizontalAlignment.Right;
-            dockLayout.Controls.Add(d1);
-            dockLayout.Controls.Add(new DockItem(CreateButton("play", 128, 128), DockStyle.Fill));
+                    _gridLayout.Items.Add(new GridItem(image, y, x));
+                }
+            }
+
+            for(int r = 0; r < _gridLayout.Rows; r++)
+            {
+                _gridLayout.Items.Add(new Pawn("red", r, 0, 1));
+                _gridLayout.Items.Add(new Pawn("blue", r, _gridLayout.Columns - 1, -1));
+            }
+
+            dockLayout.Items.Add(new DockItem(_gridLayout, DockStyle.Fill));
+            dockLayout.Items.Add(new DockItem(_moneyLabel, DockStyle.Top));
 
             layer.Controls.Add(dockLayout);
 
-            var style = new BorderedVisualStyle(10)
-            {
-                TopLeftRegion = "topLeft",
-                TopRegion = "top",
-                TopRightRegion = "topRight",
-                LeftRegion = "left",
-                CentreRegion = "centre",
-                RightRegion = "right",
-                BottomLeftRegion = "bottomLeft",
-                BottomRegion = "bottom",
-                BottomRightRegion = "bottomRight",
-            };
-
-            var borderedButton = new Button(style)
-            {
-                X = 50,
-                Y = 100,
-                Width = 700,
-                Height = 60,
-                Text = "The bordered visual style can be any size"
-            };
-
-            layer.Controls.Add(borderedButton);
-
             _gui.Layers.Add(layer);
+
+            // TODO: Refactor this to be auto
+            dockLayout.PerformLayout();
+            _gridLayout.PerformLayout();
         }
 
         private void SellButton_Clicked (object sender, EventArgs e)
@@ -158,11 +136,6 @@ namespace CraftworkGames.CraftworkGui.Test
             return button;
         }
 
-        private void BuyButton_Clicked (object sender, EventArgs e)
-        {
-            _tradingGame.Buy();
-        }
-
         private void QuitButton_Clicked(object sender, EventArgs e)
         {
             Exit();
@@ -178,10 +151,8 @@ namespace CraftworkGames.CraftworkGui.Test
             if (gamePadState.Buttons.Back == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Escape))
                 Exit();
 
-            _tradingGame.Update(deltaTime);
-            _productionLabel.Text = string.Format("{0:#,##0}", 
-                _tradingGame.PlayerRed.Inventory.GetQuantity(_tradingGame.PlayerRed.Production));
-            _moneyLabel.Text = string.Format("${0:#,##0.00}", _tradingGame.PlayerRed.Account.Balance);
+            _moneyLabel.Text = "Red's turn";
+            _gridLayout.PerformLayout();
 
             _gui.Update(deltaTime);
 

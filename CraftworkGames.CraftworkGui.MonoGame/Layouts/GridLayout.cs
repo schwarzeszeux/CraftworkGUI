@@ -30,50 +30,37 @@ SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public enum Orientation
+    public class GridLayout : LayoutControl<GridItem>
     {
-        Horizontal, 
-        Vertical
-    }
-
-    public class StackLayout : LayoutControl<Control>
-    {
-        public StackLayout()
+        public GridLayout(int rows, int columns)
         {
-            Orientation = Orientation.Vertical;
+            Rows = rows;
+            Columns = columns;
         }
 
-        public Orientation Orientation { get; set; }
+        public int Rows { get; private set; }
+        public int Columns { get; private set; }
 
         public override void PerformLayout()
         {
-            int xOffset = 0;
-            int yOffset = 0;
+            int cellWidth = Width / Columns;
+            int cellHeight = Height / Rows;
 
-            foreach(var control in Items)
+            foreach(var gridItem in Items)
             {
-                if(Orientation == Orientation.Horizontal)
-                {
-                    control.X = X + xOffset;
-                    control.Y = Y;
-                }
-                else
-                {
-                    control.X = X;
-                    control.Y = Y + yOffset;
-                }
-
-                xOffset += control.Width;
-                yOffset += control.Height;
+                var rectangle = new Rectangle(X + gridItem.Column * cellWidth, Y + gridItem.Row * cellHeight, cellWidth, cellHeight);
+                AlignControl(gridItem.Control, rectangle);
             }
         }
 
         protected override IEnumerable<Control> GetControls()
         {
-            return Items;
+            return Items.Select(i => i.Control);
         }
     }
 }

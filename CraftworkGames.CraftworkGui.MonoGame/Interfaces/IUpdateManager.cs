@@ -29,6 +29,7 @@ SOFTWARE.
 #endregion License
 
 using System;
+using Microsoft.Xna.Framework.Input;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
@@ -37,6 +38,8 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         bool IsInputPressed { get; }
         int X { get; }
         int Y { get; }
+        bool IsShiftDown { get; }
+        event ItemEventHandler<Keys> KeyPressed;
     }
 }
 

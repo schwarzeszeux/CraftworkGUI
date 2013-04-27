@@ -97,7 +97,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         protected virtual VisualStyle GetCurrentStyle()
         {
             var style = NormalStyle;
-            
+
             if (IsPressed && PressedStyle != null)
             {
                 style = PressedStyle;

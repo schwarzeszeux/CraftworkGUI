@@ -41,20 +41,14 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TradingGame\Account.cs" />
-    <Compile Include="TradingGame\Product.cs" />
-    <Compile Include="TradingGame\TradingGame.cs" />
-    <Compile Include="TradingGame\Inventory.cs" />
-    <Compile Include="TradingGame\Player.cs" />
-    <Compile Include="TradingGame\Market.cs" />
     <Compile Include="GameMain.cs" />
+    <Compile Include="Pawn.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
-    <Folder Include="TradingGame\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

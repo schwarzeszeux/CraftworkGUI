@@ -77,6 +77,12 @@
     <Compile Include="VisualStyles\BorderedVisualStyle.cs" />
     <Compile Include="VisualStyles\IGuiSprite.cs" />
     <Compile Include="Core\EventList.cs" />
+    <Compile Include="Controls\TextBox.cs" />
+    <Compile Include="Controls\Image.cs" />
+    <Compile Include="Layouts\GridLayout.cs" />
+    <Compile Include="Layouts\GridItem.cs" />
+    <Compile Include="Interfaces\ILayoutControl.cs" />
+    <Compile Include="Core\ItemEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

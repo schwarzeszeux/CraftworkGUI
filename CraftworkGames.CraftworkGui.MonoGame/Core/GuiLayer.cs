@@ -45,7 +45,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         private void Controls_ItemAdded (object sender, ItemEventArgs<Control> e)
         {
-            var layoutControl = e.Item as LayoutControl;
+            var layoutControl = e.Item as ILayoutControl;
 
             if(layoutControl != null)
                 layoutControl.PerformLayout();

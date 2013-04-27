@@ -35,20 +35,17 @@ using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public class DockLayout : LayoutControl
+    public class DockLayout : LayoutControl<DockItem>
     {
         public DockLayout()
         {
-            Controls = new List<DockItem>();
         }
-
-        public List<DockItem> Controls { get; private set; }
 
         public override void PerformLayout()
         {
             var dockArea = new Rectangle(X, Y, Width, Height);
 
-            foreach(var dockItem in Controls.Where(c => c.DockStyle != DockStyle.Fill))
+            foreach(var dockItem in Items.Where(c => c.DockStyle != DockStyle.Fill))
             {
                 var control = dockItem.Control;
 
@@ -75,7 +72,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
                 }
             }
 
-            foreach(var dockItem in Controls.Where(c => c.DockStyle == DockStyle.Fill))
+            foreach(var dockItem in Items.Where(c => c.DockStyle == DockStyle.Fill))
             {
                 var control = dockItem.Control;
                 AlignControl(control, new Rectangle(dockArea.X, dockArea.Y, dockArea.Width, dockArea.Height));
@@ -84,7 +81,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         protected override IEnumerable<Control> GetControls()
         {
-            return Controls.Select(i => i.Control);
+            return Items.Select(i => i.Control);
         }
     }
 }

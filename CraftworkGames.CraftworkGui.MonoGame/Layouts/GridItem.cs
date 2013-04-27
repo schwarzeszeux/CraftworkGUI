@@ -29,52 +29,20 @@ SOFTWARE.
 #endregion License
 
 using System;
-using System.Collections.Generic;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public enum Orientation
+    public class GridItem
     {
-        Horizontal, 
-        Vertical
-    }
-
-    public class StackLayout : LayoutControl<Control>
-    {
-        public StackLayout()
+        public GridItem(Control control, int row, int column)
         {
-            Orientation = Orientation.Vertical;
+            Control = control;
+            Row = row;
+            Column = column;
         }
 
-        public Orientation Orientation { get; set; }
-
-        public override void PerformLayout()
-        {
-            int xOffset = 0;
-            int yOffset = 0;
-
-            foreach(var control in Items)
-            {
-                if(Orientation == Orientation.Horizontal)
-                {
-                    control.X = X + xOffset;
-                    control.Y = Y;
-                }
-                else
-                {
-                    control.X = X;
-                    control.Y = Y + yOffset;
-                }
-
-                xOffset += control.Width;
-                yOffset += control.Height;
-            }
-        }
-
-        protected override IEnumerable<Control> GetControls()
-        {
-            return Items;
-        }
-    }
+        public Control Control { get; private set; }
+        public int Row { get; set; }
+        public int Column { get; set; }
+    }    
 }
-

@@ -36,13 +36,25 @@ using System.Collections.Generic;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public abstract class LayoutControl : Control
+    public abstract class LayoutControl<T> : Control
     {
         public LayoutControl()
         {
             HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
+            Items = new EventList<T>();
+            Items.ItemAdded += Items_ItemAdded;
         }
+
+        private void Items_ItemAdded (object sender, ItemEventArgs<T> e)
+        {
+            var layoutControl = e.Item as ILayoutControl;
+            
+            if(layoutControl != null)
+                layoutControl.PerformLayout();
+        }
+
+        public EventList<T> Items { get; private set; }
 
         public abstract void PerformLayout();
 

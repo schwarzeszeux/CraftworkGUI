@@ -35,7 +35,6 @@ using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-
     public class DockItem
     {
         public DockItem(Control control, DockStyle dockStyle)
@@ -46,6 +45,5 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         public DockStyle DockStyle { get; set; }
         public Control Control { get; private set; }
-    }
-    
+    }    
 }

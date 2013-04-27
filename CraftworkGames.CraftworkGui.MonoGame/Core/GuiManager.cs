@@ -26,6 +26,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+using Microsoft.Xna.Framework.Input;
+
+
 #endregion License
 
 using System;
@@ -83,6 +86,9 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         public abstract bool IsInputPressed { get; }
         public abstract int X { get; }
         public abstract int Y { get; }
+
+        public abstract event ItemEventHandler<Keys> KeyPressed;
+        public abstract bool IsShiftDown { get; }
     }
     
 }
