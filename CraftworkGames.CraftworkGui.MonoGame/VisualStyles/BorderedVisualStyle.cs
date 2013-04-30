@@ -43,15 +43,15 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             BorderThickness = borderThickness;
         }
 
-        public string TopLeftRegion { get; set; }
-        public string TopRegion { get; set; }
-        public string TopRightRegion { get; set; }
-        public string LeftRegion { get; set; }
-        public string CentreRegion { get; set; }
-        public string RightRegion { get; set; }
-        public string BottomLeftRegion { get; set; }
-        public string BottomRegion { get; set; }
-        public string BottomRightRegion { get; set; }
+        public ITextureRegion TopLeftRegion { get; set; }
+        public ITextureRegion TopRegion { get; set; }
+        public ITextureRegion TopRightRegion { get; set; }
+        public ITextureRegion LeftRegion { get; set; }
+        public ITextureRegion CentreRegion { get; set; }
+        public ITextureRegion RightRegion { get; set; }
+        public ITextureRegion BottomLeftRegion { get; set; }
+        public ITextureRegion BottomRegion { get; set; }
+        public ITextureRegion BottomRightRegion { get; set; }
         public int BorderThickness { get; set; }
 
         private class Rect : IRectangle

@@ -33,14 +33,12 @@ using System.Collections.Generic;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public class GuiLayer : IUpdate, IDraw, IRectangle
+    public class Screen : LayoutControl<Control>, IUpdate, IDraw, IRectangle
     {
-        public GuiLayer(int width, int height)
+        public Screen(int width, int height)
         {
             Width = width;
             Height = height;
-            Controls = new EventList<Control>();
-            Controls.ItemAdded += Controls_ItemAdded;
         }
 
         private void Controls_ItemAdded (object sender, ItemEventArgs<Control> e)
@@ -49,31 +47,37 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
             if(layoutControl != null)
                 layoutControl.PerformLayout();
+
+            PerformLayout();
         }
 
-        public int X { get { return 0; } }
-        public int Y { get { return 0; } }
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        public IGuiSprite Background { get; set; }
 
-        public string BackgroundName { get; set; }
-        public EventList<Control> Controls { get; private set; }
+        // hiding the public setters from the base class
+        public new int X { get { return 0; } }
+        public new int Y { get { return 0; } }
+        public new int Width { get; private set; }
+        public new int Height { get; private set; }
 
-        public void Update(IUpdateManager updateManager, float deltaTime)
+        public override void PerformLayout()
         {
-            foreach(var control in Controls)
-                control.Update(updateManager, deltaTime);
+            foreach(var control in Items)
+                AlignControl(control, this);
         }
-        
-        public void Draw(IDrawManager drawManager)
+
+        protected override IEnumerable<Control> GetControls()
+        {
+            return Items;
+        }
+
+        public override void Draw(IDrawManager drawManager)
         {
             drawManager.StartBatch();
+  
+            if(Background != null)
+                drawManager.Draw(Background, this);
 
-            if(!string.IsNullOrEmpty(BackgroundName))
-                drawManager.DrawTexture(BackgroundName, this);
-
-            foreach(var control in Controls)
-                control.Draw(drawManager);
+            base.Draw(drawManager);
 
             drawManager.EndBatch();
         }

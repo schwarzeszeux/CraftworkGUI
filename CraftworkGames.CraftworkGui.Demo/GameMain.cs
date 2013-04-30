@@ -35,28 +35,28 @@ namespace CraftworkGames.CraftworkGui.Test
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             var textureAtlas = new TextureAtlas("ExampleAtlas2.png");
-            textureAtlas.AddRegion("play", 0, 0, 128, 128);
-            textureAtlas.AddRegion("up", 128, 0, 64, 64);
-            textureAtlas.AddRegion("cog", 128, 64, 64, 64);
-            textureAtlas.AddRegion("tick", 192, 0, 64, 64);
-            textureAtlas.AddRegion("cross", 192, 64, 64, 64);
-            textureAtlas.AddRegion("pause", 256, 0, 64, 64);
-            textureAtlas.AddRegion("reset", 256, 64, 64, 64);
-            textureAtlas.AddRegion("box", 496, 0, 16, 16);
+            var playRegion = textureAtlas.AddRegion("play", 0, 0, 128, 128);
+            var upRegion = textureAtlas.AddRegion("up", 128, 0, 64, 64);
+            var cogRegion = textureAtlas.AddRegion("cog", 128, 64, 64, 64);
+            var tickRegion = textureAtlas.AddRegion("tick", 192, 0, 64, 64);
+            var crossRegion = textureAtlas.AddRegion("cross", 192, 64, 64, 64);
+            var pauseRegion = textureAtlas.AddRegion("pause", 256, 0, 64, 64);
+            var resetRegion = textureAtlas.AddRegion("reset", 256, 64, 64, 64);
+            var boxRegion = textureAtlas.AddRegion("box", 496, 0, 16, 16);
 
-            textureAtlas.AddRegion("red", 0, 164, 128, 111);
-            textureAtlas.AddRegion("blue", 0, 276, 128, 111);
-            textureAtlas.AddRegion("square", 128, 164, 128, 128);
-            textureAtlas.AddRegion("greenSquare", 256, 164, 128, 128);
+            var redRegion = textureAtlas.AddRegion("red", 0, 164, 128, 111);
+            var blueRegion = textureAtlas.AddRegion("blue", 0, 276, 128, 111);
+            var squareRegion = textureAtlas.AddRegion("square", 128, 164, 128, 128);
+            var greenSquareRegion = textureAtlas.AddRegion("greenSquare", 256, 164, 128, 128);
 
             _gui = new MonoGameGuiManager(GraphicsDevice, Content);
             _gui.LoadContent(new GuiContent(textureAtlas, "ExampleFont.fnt", "ExampleFont_0.png"));
-            _gui.LoadTexture("Background.png");
+            var backgroundRegion = _gui.LoadTexture("Background.png");
 
-            var layer = new GuiLayer(800, 480);
-            layer.BackgroundName = "Background.png";
+            var screen = new Screen(800, 480);
+            screen.Background = new VisualStyle(backgroundRegion);
 
-            _moneyLabel = new Label()
+            _moneyLabel = new Label(new VisualStyle(squareRegion))
             {
                 X = 600,
                 Y = 0,
@@ -67,8 +67,8 @@ namespace CraftworkGames.CraftworkGui.Test
 
             var dockLayout = new DockLayout()
             {
-                Width = layer.Width,
-                Height = layer.Height,
+                Width = screen.Width,
+                Height = screen.Height,
             };
 
             _gridLayout = new GridLayout(5, 8);
@@ -77,9 +77,8 @@ namespace CraftworkGames.CraftworkGui.Test
             {
                 for(int y = 0; y < _gridLayout.Rows; y++)
                 {
-                    var image = new Image() 
+                    var image = new Image(new VisualStyle(squareRegion)) 
                     { 
-                        NormalStyle = new VisualStyle("square"), 
                         Width = 80, 
                         Height = 80 
                     };
@@ -90,16 +89,16 @@ namespace CraftworkGames.CraftworkGui.Test
 
             for(int r = 0; r < _gridLayout.Rows; r++)
             {
-                _gridLayout.Items.Add(new Pawn("red", r, 0, 1));
-                _gridLayout.Items.Add(new Pawn("blue", r, _gridLayout.Columns - 1, -1));
+                _gridLayout.Items.Add(new Pawn(redRegion, r, 0, 1));
+                _gridLayout.Items.Add(new Pawn(blueRegion, r, _gridLayout.Columns - 1, -1));
             }
 
             dockLayout.Items.Add(new DockItem(_gridLayout, DockStyle.Fill));
             dockLayout.Items.Add(new DockItem(_moneyLabel, DockStyle.Top));
 
-            layer.Controls.Add(dockLayout);
+            screen.Items.Add(dockLayout);
 
-            _gui.Layers.Add(layer);
+            _gui.Screen = screen;
 
             // TODO: Refactor this to be auto
             dockLayout.PerformLayout();
@@ -111,21 +110,21 @@ namespace CraftworkGames.CraftworkGui.Test
 
         }
 
-        private Button CreateButton(string textureRegionName, int width, int height)
+        private Button CreateButton(ITextureRegion textureRegion, int width, int height)
         {
-            return CreateButton(textureRegionName, width, height, Color.White);
+            return CreateButton(textureRegion, width, height, Color.White);
         }
 
-        private Button CreateButton(string textureRegionName, int width, int height, Color colour)
+        private Button CreateButton(ITextureRegion textureRegion, int width, int height, Color colour)
         {
             var button = new Button() 
             { 
-                NormalStyle = new VisualStyle(textureRegionName) { BackColour = colour },
-                HoverStyle = new VisualStyle(textureRegionName) 
+                NormalStyle = new VisualStyle(textureRegion) { BackColour = colour },
+                HoverStyle = new VisualStyle(textureRegion) 
                 { 
                     Scale = new Vector2(1.05f, 1.05f),
                 },
-                PressedStyle = new VisualStyle(textureRegionName)
+                PressedStyle = new VisualStyle(textureRegion)
                 {
                     Scale = new Vector2(0.95f, 0.95f),
                 },
@@ -152,7 +151,7 @@ namespace CraftworkGames.CraftworkGui.Test
                 Exit();
 
             _moneyLabel.Text = "Red's turn";
-            _gridLayout.PerformLayout();
+            _gridLayout.PerformLayout();    // HACK to force an update
 
             _gui.Update(deltaTime);
 

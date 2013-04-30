@@ -36,10 +36,16 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 {
     public abstract class Control : IUpdate, IDraw, IRectangle
 	{
-		public Control ()
+		public Control(VisualStyle defaultStyle)
 		{
             HorizontalAlignment = HorizontalAlignment.Centre;
             VerticalAlignment = VerticalAlignment.Centre;
+
+            if(defaultStyle != null)
+            {
+                Width = defaultStyle.TextureRegion.Width;
+                Height = defaultStyle.TextureRegion.Height;
+            }
 		}
 
 		public int X { get; set; }

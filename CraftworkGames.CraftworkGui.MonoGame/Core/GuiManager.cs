@@ -40,11 +40,10 @@ namespace CraftworkGames.CraftworkGui.MonoGame
     {
         public GuiManager()
         {
-            Layers = new List<GuiLayer>();
         }
 
         public TextureAtlas TextureAtlas { get; private set; }
-        public List<GuiLayer> Layers { get; private set; }
+        public Screen Screen { get; set; }
 
         public void LoadContent(GuiContent guiContent)
         {
@@ -62,24 +61,23 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         {
             ReadInputState();
 
-            foreach(var layer in Layers)
-                layer.Update(this, deltaTime);
+            if(Screen != null)
+                Screen.Update(this, deltaTime);
         }
 
         public void Draw()
         {
-            foreach(var layer in Layers)
-                layer.Draw(this);
+            if(Screen != null)
+                Screen.Draw(this);
         }
 
-        public abstract void LoadTexture(string textureName);
+        public abstract ITextureRegion LoadTexture(string textureName);
         internal abstract void LoadFont(string fontFile, string fontTexture);
 
         public abstract void StartBatch();
         public abstract void EndBatch();
-        public abstract void DrawTexture(string textureName, IRectangle destinationRectangle);
-        public abstract void Draw(string textureRegionName, IRectangle destinationRectangle);
         public abstract void Draw(IGuiSprite sprite, IRectangle destinationRectangle);
+        public abstract void Draw(ITextureRegion textureRegion, IRectangle destinationRectangle);
         public abstract void DrawText(string text, IRectangle destinationRectangle, IGuiSprite style);
 
         internal abstract void ReadInputState();

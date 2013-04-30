@@ -38,10 +38,12 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 	public class Button : Control
 	{
 		public Button ()
+            : base(null)
 		{
 		}
 
         public Button (VisualStyle normalStyle)
+            : base(normalStyle)
         {
             NormalStyle = normalStyle;
         }

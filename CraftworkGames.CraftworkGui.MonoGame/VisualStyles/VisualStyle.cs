@@ -41,9 +41,9 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         {
         }
 
-        public VisualStyle(string textureRegionName)
+        public VisualStyle(ITextureRegion textureRegion)
         {
-            TextureRegionName  = textureRegionName;
+            TextureRegion  = textureRegion;
             BackColour = Color.White;
             ForeColour = Color.White;
             Rotation = 0;
@@ -53,7 +53,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             Depth = 0;
         }
 
-        public string TextureRegionName { get; set; }
+        public ITextureRegion TextureRegion { get; set; }
         public Color BackColour { get; set; }
         public Color ForeColour { get; set; }
         public float Rotation { get; set; }

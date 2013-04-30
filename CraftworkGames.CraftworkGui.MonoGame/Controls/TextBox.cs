@@ -22,7 +22,8 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             _keyStringMap.Add(Keys.Space, " ");
         }
 
-        public TextBox()
+        public TextBox(VisualStyle defaultStyle)
+            : base(defaultStyle)
         {
         }
 

@@ -29,27 +29,34 @@ SOFTWARE.
 #endregion License
 
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public class Image : Control
+    public class LayerLayout : LayoutControl<Layer>
     {
-        public Image(VisualStyle defaultStyle)
-            : base(defaultStyle)
-        {
-            NormalStyle = defaultStyle;
-        }
-
-        public VisualStyle NormalStyle { get; set; }
-
-        public override void Update(IUpdateManager updateManager, float deltaTime)
+        public LayerLayout()
         {
         }
 
-        public override void Draw(IDrawManager drawManager)
+        public override void PerformLayout()
         {
-            NormalStyle.Draw(drawManager, this);
+            foreach(var layer in Items)
+            {
+                layer.X = X;
+                layer.Y = Y;
+                layer.Width = Width;
+                layer.Height = Height;
+            }
         }
+
+        protected override IEnumerable<Control> GetControls()
+        {
+            return Items.SelectMany(i => i.Items);
+        }
+
+
     }
 }
 

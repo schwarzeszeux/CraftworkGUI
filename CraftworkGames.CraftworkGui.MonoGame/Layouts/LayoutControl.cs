@@ -26,19 +26,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using Microsoft.Xna.Framework;
-
-
 #endregion License
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
     public abstract class LayoutControl<T> : Control
     {
         public LayoutControl()
+            : base(null)
         {
             HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
@@ -59,6 +59,11 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         public abstract void PerformLayout();
 
         protected abstract IEnumerable<Control> GetControls();
+
+        protected void AlignControl(Control control, IRectangle rectangle)
+        {
+            AlignControl(control, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
+        }
 
         protected void AlignControl(Control control, Rectangle rectangle)
         {

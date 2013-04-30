@@ -35,7 +35,8 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 {
 	public class StatusBar : Control
 	{
-		public StatusBar ()
+		public StatusBar (VisualStyle defaultStyle)
+            : base(defaultStyle)
 		{
 		}
 

@@ -51,12 +51,17 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             _textureMap = new Dictionary<string, Texture2D>();
         }
 
-        public override void LoadTexture(string name)
+        public override ITextureRegion LoadTexture(string name)
         {
-            if(_textureMap.ContainsKey(name))
-                return;
+            Texture2D texture;
 
-            _textureMap.Add(name, _contentManager.Load<Texture2D>(name));
+            if(!_textureMap.TryGetValue(name, out texture))
+            {
+                texture = _contentManager.Load<Texture2D>(name);
+                _textureMap.Add(name, texture);
+            }
+
+            return new TextureRegion(new TextureAtlas(name), name, 0, 0, texture.Width, texture.Height);
         }
 
         internal override void LoadFont(string fontFile, string fontTexture)
@@ -95,27 +100,21 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             }
         }
 
+        // TODO: Refactor this out
         private Rectangle ToRectangle(IRectangle rectangle)
         {
             return new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
         }
 
-        public override void DrawTexture(string textureName, IRectangle destinationRectangle)
+        public override void Draw(ITextureRegion textureRegion, IRectangle destinationRectangle)
         {
-            var texture = _textureMap[textureName];
-            var destRectangle = ToRectangle(destinationRectangle);
-            _spriteBatch.Draw(texture, destRectangle, null, Color.White);
-        }
-
-        public override void Draw(string textureRegionName, IRectangle destinationRectangle)
-        {
-            var textureRegion = TextureAtlas.GetRegion(textureRegionName) as TextureRegion;
-            Draw(textureRegion, destinationRectangle);
+            // TODO: Remove this slight hack
+            Draw(new VisualStyle(textureRegion), destinationRectangle);
         }
 
         public override void Draw(IGuiSprite sprite, IRectangle destinationRectangle)
         {
-            var textureRegion = TextureAtlas.GetRegion(sprite.TextureRegionName) as TextureRegion;
+            var textureRegion = sprite.TextureRegion as TextureRegion;
             var texture = _textureMap[textureRegion.TextureAtlas.TextureName];
             
             if(texture != null)

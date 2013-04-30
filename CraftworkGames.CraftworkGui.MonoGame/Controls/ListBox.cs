@@ -57,6 +57,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         }
 
         public ListBox(VisualStyle itemStyle)
+            : base(null)
         {
             ItemStyle = itemStyle;
             Items = new List<ListBoxItem>();

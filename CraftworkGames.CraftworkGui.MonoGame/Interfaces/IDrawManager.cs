@@ -37,9 +37,8 @@ namespace CraftworkGames.CraftworkGui.MonoGame
     {
         void StartBatch();
         void EndBatch();
-        void DrawTexture(string textureName, IRectangle destinationRectangle);
         void Draw(IGuiSprite sprite, IRectangle destinationRectangle);
-        void Draw(string textureRegionName, IRectangle destinationRectangle);
+        void Draw(ITextureRegion textureRegion, IRectangle destinationRectangle);
         void DrawText(string text, IRectangle destinationRectangle, IGuiSprite style);
     }
 }

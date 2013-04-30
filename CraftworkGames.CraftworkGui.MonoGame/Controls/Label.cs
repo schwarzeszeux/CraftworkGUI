@@ -36,9 +36,10 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 {
 	public class Label : Control
 	{
-		public Label ()
+		public Label (VisualStyle defaultStyle)
+            : base(defaultStyle)
 		{
-            Style = new VisualStyle();
+            Style = defaultStyle;
 		}
 
 		public string Text { get; set; }

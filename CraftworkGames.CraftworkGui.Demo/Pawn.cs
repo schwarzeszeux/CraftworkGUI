@@ -6,8 +6,8 @@ namespace CraftworkGames.CraftworkGui
 {
     public class Pawn : GridItem
     {
-        public Pawn(string textureRegionName, int row, int column, int direction)
-            : base(CreateControl(textureRegionName), row, column)
+        public Pawn(ITextureRegion textureRegion, int row, int column, int direction)
+            : base(CreateControl(textureRegion), row, column)
         {
             Direction = direction;
             var button = Control as Button;
@@ -21,12 +21,12 @@ namespace CraftworkGames.CraftworkGui
             Column += Direction;
         }
 
-        private static Control CreateControl(string textureRegionName)
+        private static Control CreateControl(ITextureRegion textureRegion)
         {
             var button = new Button() 
             { 
-                NormalStyle = new VisualStyle(textureRegionName) { BackColour = Color.LightGray }, 
-                HoverStyle = new VisualStyle(textureRegionName) { BackColour = Color.White },
+                NormalStyle = new VisualStyle(textureRegion) { BackColour = Color.LightGray }, 
+                HoverStyle = new VisualStyle(textureRegion) { BackColour = Color.White },
                 Width = 64, 
                 Height = 64 
             };

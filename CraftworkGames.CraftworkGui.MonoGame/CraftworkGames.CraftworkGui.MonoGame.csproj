@@ -50,7 +50,6 @@
     <Compile Include="VisualStyles\VisualStyle.cs" />
     <Compile Include="Textures\TextureAtlas.cs" />
     <Compile Include="Textures\TextureRegion.cs" />
-    <Compile Include="Core\GuiLayer.cs" />
     <Compile Include="Core\GuiManager.cs" />
     <Compile Include="Core\MonoGameGuiManager.cs" />
     <Compile Include="Core\GuiContent.cs" />
@@ -83,6 +82,9 @@
     <Compile Include="Layouts\GridItem.cs" />
     <Compile Include="Interfaces\ILayoutControl.cs" />
     <Compile Include="Core\ItemEventArgs.cs" />
+    <Compile Include="Layouts\LayerLayout.cs" />
+    <Compile Include="Core\Screen.cs" />
+    <Compile Include="Layouts\Layer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
