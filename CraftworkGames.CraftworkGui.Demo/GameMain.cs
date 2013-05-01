@@ -12,9 +12,7 @@ namespace CraftworkGames.CraftworkGui.Test
     {
         private GraphicsDeviceManager _graphicsDeviceManager;
         private SpriteBatch _spriteBatch;
-        private GuiManager _gui;
-        private Label _moneyLabel;
-        private GridLayout _gridLayout;
+        private MonoGameGuiManager _gui;
 
         public GameMain()
         {
@@ -56,53 +54,35 @@ namespace CraftworkGames.CraftworkGui.Test
             var screen = new Screen(800, 480);
             screen.Background = new VisualStyle(backgroundRegion);
 
-            _moneyLabel = new Label(new VisualStyle(squareRegion))
+            var stackLayout = new StackLayout()
             {
-                X = 600,
-                Y = 0,
-                Width = 200,
-                Height = 32,
-                HorizontalAlignment = HorizontalAlignment.Right
+                Orientation = Orientation.Horizontal
             };
 
-            var dockLayout = new DockLayout()
-            {
-                Width = screen.Width,
-                Height = screen.Height,
-            };
+            var button0 = CreateButton(playRegion, 64, 64);
+            button0.HorizontalAlignment = HorizontalAlignment.Centre;
+            button0.VerticalAlignment = VerticalAlignment.Centre;
+            stackLayout.Items.Add(button0);
 
-            _gridLayout = new GridLayout(5, 8);
+            var button1 = CreateButton(cogRegion, 64, 64);
+            button1.HorizontalAlignment = HorizontalAlignment.Centre;
+            button1.VerticalAlignment = VerticalAlignment.Centre;
+            stackLayout.Items.Add(button1);
 
-            for(int x = 0; x < _gridLayout.Columns; x++)
-            {
-                for(int y = 0; y < _gridLayout.Rows; y++)
-                {
-                    var image = new Image(new VisualStyle(squareRegion)) 
-                    { 
-                        Width = 80, 
-                        Height = 80 
-                    };
+            var button2 = CreateButton(tickRegion, 64, 64);
+            button2.HorizontalAlignment = HorizontalAlignment.Centre;
+            button2.VerticalAlignment = VerticalAlignment.Centre;
+            stackLayout.Items.Add(button2);
 
-                    _gridLayout.Items.Add(new GridItem(image, y, x));
-                }
-            }
-
-            for(int r = 0; r < _gridLayout.Rows; r++)
-            {
-                _gridLayout.Items.Add(new Pawn(redRegion, r, 0, 1));
-                _gridLayout.Items.Add(new Pawn(blueRegion, r, _gridLayout.Columns - 1, -1));
-            }
-
-            dockLayout.Items.Add(new DockItem(_gridLayout, DockStyle.Fill));
-            dockLayout.Items.Add(new DockItem(_moneyLabel, DockStyle.Top));
-
-            screen.Items.Add(dockLayout);
+            screen.Items.Add(stackLayout);
 
             _gui.Screen = screen;
 
             // TODO: Refactor this to be auto
-            dockLayout.PerformLayout();
-            _gridLayout.PerformLayout();
+            screen.PerformLayout();
+            stackLayout.PerformLayout();
+            //dockLayout.PerformLayout();
+            //_gridLayout.PerformLayout();
         }
 
         private void SellButton_Clicked (object sender, EventArgs e)
@@ -149,9 +129,6 @@ namespace CraftworkGames.CraftworkGui.Test
             // For Mobile devices, this logic will close the Game when the Back button is pressed
             if (gamePadState.Buttons.Back == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Escape))
                 Exit();
-
-            _moneyLabel.Text = "Red's turn";
-            _gridLayout.PerformLayout();    // HACK to force an update
 
             _gui.Update(deltaTime);
 

@@ -46,11 +46,9 @@
     <Compile Include="Interfaces\IGuiProvider.cs" />
     <Compile Include="Interfaces\IDraw.cs" />
     <Compile Include="Interfaces\IDrawManager.cs" />
-    <Compile Include="Interfaces\IUpdateManager.cs" />
     <Compile Include="VisualStyles\VisualStyle.cs" />
     <Compile Include="Textures\TextureAtlas.cs" />
     <Compile Include="Textures\TextureRegion.cs" />
-    <Compile Include="Core\GuiManager.cs" />
     <Compile Include="Core\MonoGameGuiManager.cs" />
     <Compile Include="Core\GuiContent.cs" />
     <Compile Include="Fonts\FontRenderer.cs" />
@@ -85,6 +83,8 @@
     <Compile Include="Layouts\LayerLayout.cs" />
     <Compile Include="Core\Screen.cs" />
     <Compile Include="Layouts\Layer.cs" />
+    <Compile Include="Interfaces\IInputManager.cs" />
+    <Compile Include="Layouts\Margin.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

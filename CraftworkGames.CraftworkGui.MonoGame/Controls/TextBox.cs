@@ -29,17 +29,17 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         private static readonly Dictionary<Keys, string> _keyStringMap;
         private bool _firstUpdate = true;
-        public override void Update(IUpdateManager updateManager, float deltaTime)
+        public override void Update(IInputManager inputManager, float deltaTime)
         {
             if(_firstUpdate)
             {
-                updateManager.KeyPressed += HandleKeyPressed;;
+                inputManager.KeyPressed += HandleKeyPressed;;
                 _firstUpdate = false;
             }
 
-            _isShiftDown = updateManager.IsShiftDown;
+            _isShiftDown = inputManager.IsShiftDown;
 
-            base.Update(updateManager, deltaTime);
+            base.Update(inputManager, deltaTime);
         }
 
         private bool _isShiftDown = false;

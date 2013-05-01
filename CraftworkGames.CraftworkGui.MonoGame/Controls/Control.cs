@@ -46,12 +46,15 @@ namespace CraftworkGames.CraftworkGui.MonoGame
                 Width = defaultStyle.TextureRegion.Width;
                 Height = defaultStyle.TextureRegion.Height;
             }
+
+            Margin = new Margin(4);
 		}
 
 		public int X { get; set; }
 		public int Y { get; set; }
 		public int Width { get; set; }
 		public int Height { get; set; }
+        public Margin Margin { get; set; }
         public HorizontalAlignment HorizontalAlignment { get; set; }
         public VerticalAlignment VerticalAlignment { get; set; }
 
@@ -63,8 +66,13 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 			}
 		}
         		
-        public abstract void Update(IUpdateManager updateManager, float deltaTime);
+        public abstract void Update(IInputManager inputManager, float deltaTime);
         public abstract void Draw(IDrawManager drawManager);
+
+        public bool ContainsPoint(Point point)
+        {
+            return ContainsPoint(point.X, point.Y);
+        }
 
 		public bool ContainsPoint (int x, int y)
 		{

@@ -69,15 +69,15 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 		private const float _repeatDelay = 0.18f;
 		private float _remainingRepeatDelay = _repeatDelay;
 
-        public override void Update (IUpdateManager updateManager, float deltaTime)
+        public override void Update (IInputManager inputManager, float deltaTime)
 		{
-			IsMouseOver = ContainsPoint(updateManager.X, updateManager.Y);
+			IsMouseOver = ContainsPoint(inputManager.MousePosition);
 			
 			if(IsMouseOver)
 			{
 				if(IsPressed)
 				{
-					if(!updateManager.IsInputPressed || (_remainingRepeatDelay <= 0 && IsRepeating))
+					if(!inputManager.IsInputPressed || (_remainingRepeatDelay <= 0 && IsRepeating))
 					{
 						_remainingRepeatDelay = _repeatDelay;
 						Click();
@@ -87,7 +87,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 						_remainingRepeatDelay -= deltaTime;
 				}
 				
-                IsPressed = updateManager.IsInputPressed;
+                IsPressed = inputManager.IsInputPressed;
 			}
 			else
 			{

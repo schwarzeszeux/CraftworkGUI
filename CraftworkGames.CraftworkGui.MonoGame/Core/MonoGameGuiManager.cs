@@ -38,7 +38,7 @@ using System.IO;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public class MonoGameGuiManager : GuiManager
+    public class MonoGameGuiManager : IDrawManager, IInputManager
     {
         private Dictionary<string, Texture2D> _textureMap;
         private ContentManager _contentManager;
@@ -51,7 +51,31 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             _textureMap = new Dictionary<string, Texture2D>();
         }
 
-        public override ITextureRegion LoadTexture(string name)
+        public TextureAtlas TextureAtlas { get; private set; }
+        public Screen Screen { get; set; }
+
+        public void LoadContent(GuiContent guiContent)
+        {
+            TextureAtlas = guiContent.TextureAtlas;
+            LoadTexture(guiContent.TextureAtlas.TextureName);
+            LoadFont(guiContent.FontFile, guiContent.FontTexture);
+        }
+
+        public void Update(float deltaTime)
+        {
+            ReadInputState();
+            
+            if(Screen != null)
+                Screen.Update(this, deltaTime);
+        }
+                
+        public void Draw()
+        {
+            if(Screen != null)
+                Screen.Draw(this);
+        }
+
+        public ITextureRegion LoadTexture(string name)
         {
             Texture2D texture;
 
@@ -64,7 +88,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             return new TextureRegion(new TextureAtlas(name), name, 0, 0, texture.Width, texture.Height);
         }
 
-        internal override void LoadFont(string fontFile, string fontTexture)
+        private void LoadFont(string fontFile, string fontTexture)
         {
             LoadTexture(fontTexture);
 
@@ -75,12 +99,11 @@ namespace CraftworkGames.CraftworkGui.MonoGame
                 var texture = _textureMap[fontTexture];
                 _fontRenderer = new FontRenderer(fontData,  texture);
             }
-
         }
 
-        public override event ItemEventHandler<Keys> KeyPressed;
+        public event ItemEventHandler<Keys> KeyPressed;
 
-        internal override void ReadInputState()
+        private void ReadInputState()
         {
             var previousKeys = _keyboardState.GetPressedKeys();
 
@@ -106,13 +129,13 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             return new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
         }
 
-        public override void Draw(ITextureRegion textureRegion, IRectangle destinationRectangle)
+        public void Draw(ITextureRegion textureRegion, IRectangle destinationRectangle)
         {
             // TODO: Remove this slight hack
             Draw(new VisualStyle(textureRegion), destinationRectangle);
         }
 
-        public override void Draw(IGuiSprite sprite, IRectangle destinationRectangle)
+        public void Draw(IGuiSprite sprite, IRectangle destinationRectangle)
         {
             var textureRegion = sprite.TextureRegion as TextureRegion;
             var texture = _textureMap[textureRegion.TextureAtlas.TextureName];
@@ -136,7 +159,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             }
         }
 
-        internal void Draw(TextureRegion textureRegion, IRectangle destinationRectangle)
+        private void Draw(TextureRegion textureRegion, IRectangle destinationRectangle)
         {
             var texture = _textureMap[textureRegion.TextureAtlas.TextureName];
 
@@ -148,7 +171,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             }
         }
 
-        public override void DrawText(string text, IRectangle destinationRectangle, IGuiSprite style)
+        public void DrawText(string text, IRectangle destinationRectangle, IGuiSprite style)
         {
             var destRectangle = ToRectangle(destinationRectangle);
             var size = _fontRenderer.MeasureText(text);
@@ -160,14 +183,14 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         }
 
         private SpriteBatch _spriteBatch;
-        public override void StartBatch()
+        public void StartBatch()
         {
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, 
                                SamplerState.AnisotropicClamp, DepthStencilState.Default, 
                                RasterizerState.CullNone, null, Matrix.CreateScale(1));
         }
 
-        public override void EndBatch()
+        public void EndBatch()
         {
             _spriteBatch.End();
         }
@@ -175,7 +198,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         private MouseState _mouseState;
         private KeyboardState _keyboardState;
 
-        public override bool IsInputPressed
+        public bool IsInputPressed
         {
             get
             {
@@ -183,7 +206,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             }
         }
 
-        public override bool IsShiftDown
+        public bool IsShiftDown
         {
             get
             {
@@ -191,19 +214,11 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             }
         }
 
-        public override int X
+        public Point MousePosition
         {
             get
             {
-                return _mouseState.X;
-            }
-        }
-
-        public override int Y
-        {
-            get
-            {
-                return _mouseState.Y;
+                return new Point(_mouseState.X, _mouseState.Y);
             }
         }
     }

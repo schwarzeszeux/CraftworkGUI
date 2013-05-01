@@ -42,7 +42,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         public VisualStyle NormalStyle { get; set; }
 
-        public override void Update(IUpdateManager updateManager, float deltaTime)
+        public override void Update(IInputManager inputManager, float deltaTime)
         {
         }
 

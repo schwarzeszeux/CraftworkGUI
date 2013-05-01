@@ -45,7 +45,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 		public string Text { get; set; }
         public VisualStyle Style { get; set; }
 
-        public override void Update(IUpdateManager updateManager, float deltaTime)
+        public override void Update(IInputManager inputManager, float deltaTime)
         {
         }
 

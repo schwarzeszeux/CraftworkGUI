@@ -34,7 +34,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 {
     public interface IUpdate
     {
-        void Update(IUpdateManager updateManager, float deltaTime);
+        void Update(IInputManager inputManager, float deltaTime);
     }
 }
 

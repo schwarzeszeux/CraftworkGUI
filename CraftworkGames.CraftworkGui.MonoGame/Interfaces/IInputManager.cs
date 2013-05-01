@@ -30,14 +30,14 @@ SOFTWARE.
 
 using System;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public interface IUpdateManager
+    public interface IInputManager
     {
         bool IsInputPressed { get; }
-        int X { get; }
-        int Y { get; }
+        Point MousePosition { get; }
         bool IsShiftDown { get; }
         event ItemEventHandler<Keys> KeyPressed;
     }

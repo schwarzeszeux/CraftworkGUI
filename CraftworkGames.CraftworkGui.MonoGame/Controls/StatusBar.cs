@@ -40,7 +40,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 		{
 		}
 
-        public override void Update(IUpdateManager updateManager, float deltaTime)
+        public override void Update(IInputManager inputManager, float deltaTime)
         {
             throw new NotImplementedException();
         }

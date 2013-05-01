@@ -26,6 +26,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+using Microsoft.Xna.Framework;
+
+
 #endregion License
 
 using System;
@@ -55,19 +58,18 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
             foreach(var control in Items)
             {
-                if(Orientation == Orientation.Horizontal)
-                {
-                    control.X = X + xOffset;
-                    control.Y = Y;
-                }
-                else
-                {
-                    control.X = X;
-                    control.Y = Y + yOffset;
-                }
+                var controlSize = GetSize(control);
+                Rectangle rectangle;
 
-                xOffset += control.Width;
-                yOffset += control.Height;
+                if(Orientation == Orientation.Horizontal)
+                    rectangle = new Rectangle(X + xOffset, Y, controlSize.Width, Height);
+                else
+                    rectangle = new Rectangle(X, Y + yOffset, Width, controlSize.Height);
+
+                AlignControl(control, rectangle);
+
+                xOffset += controlSize.Width;
+                yOffset += controlSize.Height;
             }
         }
 

@@ -73,19 +73,19 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         public int ItemHeight { get; set; }
 
-        public override void Update(IUpdateManager updateManager, float deltaTime)
+        public override void Update(IInputManager inputManager, float deltaTime)
         {
             ListBoxItem hoveredItem = null;
 
             foreach(var item in Items)
             {
-                if(item.ContainsPoint(updateManager.X, updateManager.Y))
+                if(item.ContainsPoint(inputManager.MousePosition))
                     hoveredItem = item;
             }
 
             HoveredItem = hoveredItem;
 
-            if(updateManager.IsInputPressed && ContainsPoint(updateManager.X, updateManager.Y))
+            if(inputManager.IsInputPressed && ContainsPoint(inputManager.MousePosition))
                 SelectedItem = HoveredItem;
         }
 

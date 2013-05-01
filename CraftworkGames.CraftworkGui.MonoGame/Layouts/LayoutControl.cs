@@ -42,6 +42,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         {
             HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
+            Margin = new Margin(0);
             Items = new EventList<T>();
             Items.ItemAdded += Items_ItemAdded;
         }
@@ -65,49 +66,60 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             AlignControl(control, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
         }
 
+        protected Size GetSize(Control control)
+        {
+            var width = control.Width + control.Margin.Left + control.Margin.Right;
+            var height = control.Height + control.Margin.Top + control.Margin.Bottom;
+            return new Size(width, height);
+        }
+
         protected void AlignControl(Control control, Rectangle rectangle)
         {
+            var controlSize = GetSize(control);
+
             switch(control.HorizontalAlignment)
             {
                 case HorizontalAlignment.Left:
-                    control.X = rectangle.X;
+                    control.X = rectangle.X + control.Margin.Left;
                     break;
                 case HorizontalAlignment.Right:
-                    control.X = rectangle.X + rectangle.Width - control.Width;
+                    control.X = rectangle.X + rectangle.Width - controlSize.Width;
                     break;
                 case HorizontalAlignment.Stretch:
-                    control.X = rectangle.X;
-                    control.Width = rectangle.Width;
+                    control.X = rectangle.X + control.Margin.Left;
+                    control.Width = rectangle.Width - control.Margin.Right - control.Margin.Left;
                     break;
                 case HorizontalAlignment.Centre:
                     var halfWidth = rectangle.Width / 2;
-                    control.X = rectangle.X + halfWidth - control.Width / 2;
+                    var controlHalfWidth = control.Width / 2;
+                    control.X = rectangle.X + halfWidth - controlHalfWidth;
                     break;
             }
 
             switch(control.VerticalAlignment)
             {
                 case VerticalAlignment.Top:
-                    control.Y = rectangle.Y;
+                    control.Y = rectangle.Y + Margin.Top;
                     break;
                 case VerticalAlignment.Bottom:
-                    control.Y = rectangle.Y + rectangle.Height - control.Height;
+                    control.Y = rectangle.Y + rectangle.Height - controlSize.Height;
                     break;
                 case VerticalAlignment.Stretch:
-                    control.Y = rectangle.Y;
-                    control.Height = rectangle.Height;
+                    control.Y = rectangle.Y + Margin.Top;
+                    control.Height = rectangle.Height - Margin.Bottom - control.Margin.Top;
                     break;
                 case VerticalAlignment.Centre:
                     var halfHeight = rectangle.Height / 2;
-                    control.Y = rectangle.Y + halfHeight - control.Height / 2;
+                    var controlHalfHeight = control.Height / 2;
+                    control.Y = rectangle.Y + halfHeight - controlHalfHeight;
                     break;
             }
         }
 
-        public override void Update(IUpdateManager updateManager, float deltaTime)
+        public override void Update(IInputManager inputManager, float deltaTime)
         {
             foreach(var control in GetControls())
-                control.Update(updateManager, deltaTime);
+                control.Update(inputManager, deltaTime);
         }
 
         public override void Draw(IDrawManager drawManager)

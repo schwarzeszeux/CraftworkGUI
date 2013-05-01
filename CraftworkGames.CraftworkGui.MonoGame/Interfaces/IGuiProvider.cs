@@ -32,7 +32,7 @@ using System;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public interface IGuiProvider : IUpdateManager, IDrawManager
+    public interface IGuiProvider : IInputManager, IDrawManager
     {
         void LoadTexture(string name);
         void Update(float deltaTime);

@@ -29,6 +29,7 @@ SOFTWARE.
 #endregion License
 
 using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
@@ -43,6 +44,11 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
     public static class IRectangleExtensions
     {
+        public static bool ContainsPoint(this IRectangle rectangle, Point point)
+        {
+            return ContainsPoint(rectangle, point.X, point.Y);
+        }
+
         public static bool ContainsPoint(this IRectangle rectangle, int x, int y)
         {
             if(x < rectangle.X || x > rectangle.X + rectangle.Width)
