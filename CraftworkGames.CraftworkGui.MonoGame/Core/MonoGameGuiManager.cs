@@ -154,7 +154,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
                     destRectangle = new Rectangle(offsetX + destRectangle.X, offsetY + destRectangle.Y, (int)scaledWidth, (int)scaledHeight);
                 }
 
-                _spriteBatch.Draw(texture, destRectangle, sourceRectangle, sprite.BackColour, 
+                _spriteBatch.Draw(texture, destRectangle, sourceRectangle, sprite.Colour, 
                                   sprite.Rotation, sprite.Origin, sprite.Effect, sprite.Depth);
             }
         }
@@ -171,15 +171,49 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             }
         }
 
-        public void DrawText(string text, IRectangle destinationRectangle, IGuiSprite style)
+        public void DrawText(string text, IRectangle destinationRectangle, TextStyle style)
         {
-            var destRectangle = ToRectangle(destinationRectangle);
-            var size = _fontRenderer.MeasureText(text);
-            var centre = destRectangle.Center;
-            var lineHeight = _fontRenderer.FontFile.Common.LineHeight;
-            var textPosition = new Point(centre.X - size.Width / 2, centre.Y - lineHeight / 2);
+            var textPosition = AlignText(text, ToRectangle(destinationRectangle), style);
 
-            _fontRenderer.DrawText(_spriteBatch, textPosition.X, textPosition.Y, text, style.ForeColour);        
+            _fontRenderer.DrawText(_spriteBatch, textPosition.X, textPosition.Y, text, style.Colour);        
+        }
+
+        private Point AlignText(string text, Rectangle destinationRectangle, TextStyle style)
+        {
+            int x = 0, y = 0;
+            var size = _fontRenderer.MeasureText(text);
+            var centre = destinationRectangle.Center;
+            var lineHeight = _fontRenderer.FontFile.Common.LineHeight;
+
+            switch(style.HorizontalAlignment)
+            {
+                case HorizontalAlignment.Centre:
+                    x = centre.X - size.Width / 2;
+                    break;
+                case HorizontalAlignment.Stretch:
+                case HorizontalAlignment.Left:
+                    x = destinationRectangle.X;
+                    break;
+                case HorizontalAlignment.Right:
+                    x = destinationRectangle.Right - size.Width;
+                    break;
+            }
+
+            switch(style.VerticalAlignment)
+            {
+                case VerticalAlignment.Centre:
+                    y = centre.Y - lineHeight / 2;
+                    break;
+                case VerticalAlignment.Stretch:
+                case VerticalAlignment.Top:
+                    y = destinationRectangle.Y;
+                    break;
+                case VerticalAlignment.Bottom:
+                    y = destinationRectangle.Bottom - size.Height;
+                    break;
+            }
+
+            return new Point(x, y);
         }
 
         private SpriteBatch _spriteBatch;

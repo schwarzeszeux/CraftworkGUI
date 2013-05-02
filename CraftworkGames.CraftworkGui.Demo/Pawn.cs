@@ -25,8 +25,8 @@ namespace CraftworkGames.CraftworkGui
         {
             var button = new Button() 
             { 
-                NormalStyle = new VisualStyle(textureRegion) { BackColour = Color.LightGray }, 
-                HoverStyle = new VisualStyle(textureRegion) { BackColour = Color.White },
+                NormalStyle = new VisualStyle(textureRegion) { Colour = Color.LightGray }, 
+                HoverStyle = new VisualStyle(textureRegion) { Colour = Color.White },
                 Width = 64, 
                 Height = 64 
             };

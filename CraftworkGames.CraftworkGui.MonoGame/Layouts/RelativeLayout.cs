@@ -29,17 +29,32 @@ SOFTWARE.
 #endregion License
 
 using System;
-using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public interface IDrawManager
-    {
-        void StartBatch();
-        void EndBatch();
-        void Draw(IGuiSprite sprite, IRectangle destinationRectangle);
-        void Draw(ITextureRegion textureRegion, IRectangle destinationRectangle);
-        void DrawText(string text, IRectangle destinationRectangle, TextStyle style);
-    }
-}
 
+    public class RelativeLayout : LayoutControl<RelativeItem>
+    {
+        public RelativeLayout()
+        {
+        }
+
+        public override void PerformLayout()
+        {
+            foreach(var item in Items)
+            {
+                item.Control.X = X + item.X;
+                item.Control.Y = Y + item.Y;
+            }
+        }
+
+        protected override IEnumerable<Control> GetControls()
+        {
+            return Items.Select(i => i.Control);
+        }
+    }
+    
+}

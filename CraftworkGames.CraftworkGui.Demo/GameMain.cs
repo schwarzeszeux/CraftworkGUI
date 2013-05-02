@@ -56,7 +56,7 @@ namespace CraftworkGames.CraftworkGui.Test
 
             var stackLayout = new StackLayout()
             {
-                Orientation = Orientation.Horizontal
+                Orientation = Orientation.Vertical
             };
 
             var button0 = CreateButton(playRegion, 64, 64);
@@ -74,6 +74,22 @@ namespace CraftworkGames.CraftworkGui.Test
             button2.VerticalAlignment = VerticalAlignment.Centre;
             stackLayout.Items.Add(button2);
 
+            var label = new Label(new VisualStyle(squareRegion) { Colour = new Color(Color.White, 0.5f) })
+            {
+                Text = "Hello World!"
+            };
+            stackLayout.Items.Add(label);
+
+            var canvasLayout = new RelativeLayout()
+            {
+                HorizontalAlignment = HorizontalAlignment.Centre,
+                VerticalAlignment = VerticalAlignment.Centre
+            };
+
+            var button3 = CreateButton(crossRegion, 50, 50);
+            canvasLayout.Items.Add(new RelativeItem(button3, -32, -32));
+            stackLayout.Items.Add(canvasLayout);
+
             screen.Items.Add(stackLayout);
 
             _gui.Screen = screen;
@@ -81,8 +97,7 @@ namespace CraftworkGames.CraftworkGui.Test
             // TODO: Refactor this to be auto
             screen.PerformLayout();
             stackLayout.PerformLayout();
-            //dockLayout.PerformLayout();
-            //_gridLayout.PerformLayout();
+            canvasLayout.PerformLayout();
         }
 
         private void SellButton_Clicked (object sender, EventArgs e)
@@ -99,7 +114,7 @@ namespace CraftworkGames.CraftworkGui.Test
         {
             var button = new Button() 
             { 
-                NormalStyle = new VisualStyle(textureRegion) { BackColour = colour },
+                NormalStyle = new VisualStyle(textureRegion) { Colour = colour },
                 HoverStyle = new VisualStyle(textureRegion) 
                 { 
                     Scale = new Vector2(1.05f, 1.05f),

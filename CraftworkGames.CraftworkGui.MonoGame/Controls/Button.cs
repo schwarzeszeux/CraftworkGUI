@@ -35,7 +35,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-	public class Button : Control
+	public class Button : TextControl
 	{
 		public Button ()
             : base(null)
@@ -47,8 +47,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         {
             NormalStyle = normalStyle;
         }
-
-		public string Text { get; set; }
+        		
 		public bool IsPressed {	get; set; }
 		public bool IsMouseOver { get; set; }
 		public bool IsRepeating { get; set; }
@@ -116,12 +115,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         {
             var style = GetCurrentStyle();
             style.Draw(drawManager, this);
-
-            // text
-            if(!string.IsNullOrEmpty(Text))
-            {
-                drawManager.DrawText(Text, this, style);
-            }
+            TextStyle.Draw(drawManager, Text, this);
         }
 	}
 }

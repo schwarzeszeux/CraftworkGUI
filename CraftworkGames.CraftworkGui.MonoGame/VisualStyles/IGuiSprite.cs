@@ -37,8 +37,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
     public interface IGuiSprite
     {
         ITextureRegion TextureRegion { get; }
-        Color BackColour { get; }
-        Color ForeColour { get; }
+        Color Colour { get; }
         float Rotation { get; }
         Vector2 Origin { get; }
         Vector2 Scale { get; }

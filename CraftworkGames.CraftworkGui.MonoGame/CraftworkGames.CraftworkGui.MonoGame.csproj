@@ -85,6 +85,10 @@
     <Compile Include="Layouts\Layer.cs" />
     <Compile Include="Interfaces\IInputManager.cs" />
     <Compile Include="Layouts\Margin.cs" />
+    <Compile Include="VisualStyles\TextStyle.cs" />
+    <Compile Include="Controls\TextControl.cs" />
+    <Compile Include="Layouts\RelativeLayout.cs" />
+    <Compile Include="Layouts\RelativeItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

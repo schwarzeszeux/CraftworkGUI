@@ -36,16 +36,10 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 {
     public class VisualStyle : IGuiSprite
     {
-        public VisualStyle()
-            : this(null)
-        {
-        }
-
         public VisualStyle(ITextureRegion textureRegion)
         {
             TextureRegion  = textureRegion;
-            BackColour = Color.White;
-            ForeColour = Color.White;
+            Colour = Color.White;
             Rotation = 0;
             Origin = Vector2.Zero;
             Scale = Vector2.One;
@@ -54,8 +48,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         }
 
         public ITextureRegion TextureRegion { get; set; }
-        public Color BackColour { get; set; }
-        public Color ForeColour { get; set; }
+        public Color Colour { get; set; }
         public float Rotation { get; set; }
         public Vector2 Origin { get; set; }
         public Vector2 Scale { get; set; }

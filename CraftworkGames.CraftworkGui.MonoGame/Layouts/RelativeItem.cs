@@ -29,17 +29,20 @@ SOFTWARE.
 #endregion License
 
 using System;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-    public interface IDrawManager
+    public class RelativeItem
     {
-        void StartBatch();
-        void EndBatch();
-        void Draw(IGuiSprite sprite, IRectangle destinationRectangle);
-        void Draw(ITextureRegion textureRegion, IRectangle destinationRectangle);
-        void DrawText(string text, IRectangle destinationRectangle, TextStyle style);
-    }
-}
+        public RelativeItem(Control control, int x, int y)
+        {
+            X = x;
+            Y = y;
+            Control = control;
+        }
 
+        public int X { get; set; }
+        public int Y { get; set; }
+        public Control Control { get; set; }
+    }    
+}

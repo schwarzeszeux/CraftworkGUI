@@ -35,12 +35,12 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 {
     public class ListBoxItem : IRectangle
     {
-        public ListBoxItem(string name)
+        public ListBoxItem(string text)
         {
-            Name = name;
+            Text = text;
         }
 
-        public string Name { get; set; }
+        public string Text { get; set; }
         public object Tag { get; set; }
 
         public int X { get; set; }
@@ -68,6 +68,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         public ListBoxItem HoveredItem { get; set; }
 
         public VisualStyle ItemStyle { get; set; }
+        public TextStyle ItemTextStyle { get; set; }
         public VisualStyle SelectedItemStyle { get; set; }
         public VisualStyle HoveredItemStyle { get; set; }
 
@@ -115,7 +116,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
                 }
 
                 style.Draw(drawManager, item);
-                drawManager.DrawText(item.Name, item, style);
+                ItemTextStyle.Draw(drawManager, item.Text, item);
 
                 y += ItemHeight;
             }

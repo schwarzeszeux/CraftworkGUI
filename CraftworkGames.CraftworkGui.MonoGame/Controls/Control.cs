@@ -41,7 +41,7 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             HorizontalAlignment = HorizontalAlignment.Centre;
             VerticalAlignment = VerticalAlignment.Centre;
 
-            if(defaultStyle != null)
+            if(defaultStyle != null && defaultStyle.TextureRegion != null)
             {
                 Width = defaultStyle.TextureRegion.Width;
                 Height = defaultStyle.TextureRegion.Height;

@@ -34,16 +34,20 @@ using Microsoft.Xna.Framework;
 
 namespace CraftworkGames.CraftworkGui.MonoGame
 {
-	public class Label : Control
+	public class Label : TextControl
 	{
+        public Label()
+            : this(null)
+        {
+        }
+
 		public Label (VisualStyle defaultStyle)
             : base(defaultStyle)
 		{
-            Style = defaultStyle;
+            NormalStyle = defaultStyle;
 		}
 
-		public string Text { get; set; }
-        public VisualStyle Style { get; set; }
+        public VisualStyle NormalStyle { get; set; }
 
         public override void Update(IInputManager inputManager, float deltaTime)
         {
@@ -51,10 +55,10 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         public override void Draw(IDrawManager drawManager)
         {
-            if(!string.IsNullOrEmpty(Text))
-            {
-                drawManager.DrawText(Text, this, Style);
-            }
+            if(NormalStyle != null)
+                NormalStyle.Draw(drawManager, this);
+
+            TextStyle.Draw(drawManager, Text, this);
         }
 	}
 }
