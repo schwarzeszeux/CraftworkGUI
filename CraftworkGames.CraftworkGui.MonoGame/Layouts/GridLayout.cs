@@ -46,6 +46,22 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         public int Rows { get; private set; }
         public int Columns { get; private set; }
 
+        public override Size DesiredSize
+        {
+            get
+            {
+                return CalculateDesiredSize();
+            }
+        }
+
+        private Size CalculateDesiredSize()
+        {
+            var rowHeight = Items.Max(i => i.Control.Height);
+            var columnWidth = Items.Max(i => i.Control.Width);
+
+            return new Size(columnWidth * Columns, rowHeight * Rows);
+        }
+
         public override void PerformLayout()
         {
             int cellWidth = Width / Columns;

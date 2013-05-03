@@ -23,9 +23,13 @@ namespace CraftworkGames.CraftworkGui
 
         private static Control CreateControl(ITextureRegion textureRegion)
         {
-            var button = new Button() 
+            var normalStyle = new VisualStyle(textureRegion) 
             { 
-                NormalStyle = new VisualStyle(textureRegion) { Colour = Color.LightGray }, 
+                Colour = Color.LightGray 
+            };
+
+            var button = new Button(normalStyle) 
+            { 
                 HoverStyle = new VisualStyle(textureRegion) { Colour = Color.White },
                 Width = 64, 
                 Height = 64 

@@ -48,26 +48,27 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             foreach(var dockItem in Items.Where(c => c.DockStyle != DockStyle.Fill))
             {
                 var control = dockItem.Control;
+                var controlSize = GetSize(control);
 
                 switch(dockItem.DockStyle)
                 {
                     case DockStyle.Left:
-                        AlignControl(control, new Rectangle(dockArea.X, dockArea.Y, control.Width, dockArea.Height));
-                        dockArea.X += control.Width;
-                        dockArea.Width -= control.Width;
+                        AlignControl(control, new Rectangle(dockArea.X, dockArea.Y, controlSize.Width, dockArea.Height));
+                        dockArea.X += controlSize.Width;
+                        dockArea.Width -= controlSize.Width;
                         break;
                     case DockStyle.Right:
-                        AlignControl(control, new Rectangle(dockArea.X + dockArea.Width - control.Width, dockArea.Y, control.Width, dockArea.Height));
-                        dockArea.Width -= control.Width;
+                        AlignControl(control, new Rectangle(dockArea.X + dockArea.Width - controlSize.Width, dockArea.Y, controlSize.Width, dockArea.Height));
+                        dockArea.Width -= controlSize.Width;
                         break;
                     case DockStyle.Top:
-                        AlignControl(control, new Rectangle(dockArea.X, dockArea.Y, dockArea.Width, control.Height));
-                        dockArea.Y += control.Height;
-                        dockArea.Height -= control.Height;
+                        AlignControl(control, new Rectangle(dockArea.X, dockArea.Y, dockArea.Width, controlSize.Height));
+                        dockArea.Y += controlSize.Height;
+                        dockArea.Height -= controlSize.Height;
                         break;
                     case DockStyle.Bottom:
-                        AlignControl(control, new Rectangle(dockArea.X, dockArea.Y + dockArea.Height - control.Height, dockArea.Width, control.Height));
-                        dockArea.Height -= control.Height;
+                        AlignControl(control, new Rectangle(dockArea.X, dockArea.Y + dockArea.Height - controlSize.Height, dockArea.Width, controlSize.Height));
+                        dockArea.Height -= controlSize.Height;
                         break;
                 }
             }

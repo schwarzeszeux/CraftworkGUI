@@ -55,6 +55,8 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         {
             int xOffset = 0;
             int yOffset = 0;
+            int width = 0;
+            int height = 0;
 
             foreach(var control in Items)
             {
@@ -62,15 +64,28 @@ namespace CraftworkGames.CraftworkGui.MonoGame
                 Rectangle rectangle;
 
                 if(Orientation == Orientation.Horizontal)
-                    rectangle = new Rectangle(X + xOffset, Y, controlSize.Width, Height);
+                {
+                    width = xOffset + controlSize.Width;
+                    height = controlSize.Height > height ? controlSize.Height : height;
+
+                    rectangle = new Rectangle(X + xOffset, Y, controlSize.Width, height);
+                }
                 else
-                    rectangle = new Rectangle(X, Y + yOffset, Width, controlSize.Height);
+                {
+                    width = controlSize.Width > width ? controlSize.Width : width;
+                    height = yOffset + controlSize.Height;
+
+                    rectangle = new Rectangle(X, Y + yOffset, width, controlSize.Height);
+                }
 
                 AlignControl(control, rectangle);
 
                 xOffset += controlSize.Width;
                 yOffset += controlSize.Height;
             }
+
+            Width = width;
+            Height = height;
         }
 
         protected override IEnumerable<Control> GetControls()

@@ -34,7 +34,8 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 {
     public class ToggleButton : Button
     {
-        public ToggleButton()
+        public ToggleButton(VisualStyle normalStyle)
+            : base(normalStyle)
         {
             Clicked += OnClicked;
         }

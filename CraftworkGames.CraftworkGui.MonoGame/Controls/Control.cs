@@ -50,13 +50,99 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             Margin = new Margin(4);
 		}
 
-		public int X { get; set; }
-		public int Y { get; set; }
-		public int Width { get; set; }
-		public int Height { get; set; }
+        private int _x;
+		public int X 
+        { 
+            get
+            {
+                return _x;
+            }
+            set
+            {
+                if(_x != value)
+                {
+                    _x = value;
+                    RaiseEvent(PositionChanged);
+                }
+            }
+        }
+
+        private int _y;
+		public int Y 
+        { 
+            get
+            {
+                return _y;
+            }
+            set
+            {
+                if(_y != value)
+                {
+                    _y = value;
+                    RaiseEvent(PositionChanged);
+                }
+            }
+        }
+
+        private int _width;
+		public int Width 
+        { 
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                if(_width != value)
+                {
+                    _width = value;
+                    RaiseEvent(SizeChanged);
+                }
+            }
+        }
+
+        private int _height;
+		public int Height 
+        { 
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                if(_height != value)
+                {
+                    _height = value;
+                    RaiseEvent(SizeChanged);
+                }
+            }
+        }
+
+        public virtual Size DesiredSize
+        {
+            get
+            {
+                return new Size(Width, Height);
+            }
+        }
+
         public Margin Margin { get; set; }
         public HorizontalAlignment HorizontalAlignment { get; set; }
         public VerticalAlignment VerticalAlignment { get; set; }
+
+        public event EventHandler PositionChanged;
+        public event EventHandler SizeChanged; 
+
+        private void RaiseEvent(EventHandler eventHandler)
+        {
+            RaiseEvent(eventHandler, EventArgs.Empty);
+        }
+
+        private void RaiseEvent(EventHandler eventHandler, EventArgs eventArgs)
+        {
+            if(eventHandler != null)
+                eventHandler(this, eventArgs);
+        }
 
 		public Rectangle DestinationRectangle
 		{

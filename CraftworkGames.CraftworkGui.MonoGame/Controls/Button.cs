@@ -37,11 +37,6 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 {
 	public class Button : TextControl
 	{
-		public Button ()
-            : base(null)
-		{
-		}
-
         public Button (VisualStyle normalStyle)
             : base(normalStyle)
         {

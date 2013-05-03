@@ -39,15 +39,11 @@ namespace CraftworkGames.CraftworkGui.MonoGame
         {
             Width = width;
             Height = height;
+            Items.ItemAdded += ItemAdded;
         }
 
-        private void Controls_ItemAdded (object sender, ItemEventArgs<Control> e)
+        private void ItemAdded (object sender, ItemEventArgs<Control> e)
         {
-            var layoutControl = e.Item as ILayoutControl;
-
-            if(layoutControl != null)
-                layoutControl.PerformLayout();
-
             PerformLayout();
         }
 

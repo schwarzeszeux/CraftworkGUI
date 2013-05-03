@@ -61,14 +61,14 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         public void Insert(int index, T item)
         {
-            RaiseEvent(ItemAdded, item);
             _list.Insert(index, item);
+            RaiseEvent(ItemAdded, item);
         }
 
         public void RemoveAt(int index)
         {
-            RaiseEvent(ItemRemoved, _list[index]);
             _list.RemoveAt(index);
+            RaiseEvent(ItemRemoved, _list[index]);
         }
 
         public T this[int index]
@@ -89,8 +89,8 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         public void Add(T item)
         {
-            RaiseEvent(ItemAdded, item);
             _list.Add(item);
+            RaiseEvent(ItemAdded, item);
         }
 
         public void Clear()

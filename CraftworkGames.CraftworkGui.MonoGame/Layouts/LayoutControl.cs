@@ -44,15 +44,13 @@ namespace CraftworkGames.CraftworkGui.MonoGame
             VerticalAlignment = VerticalAlignment.Stretch;
             Margin = new Margin(0);
             Items = new EventList<T>();
-            Items.ItemAdded += Items_ItemAdded;
+            PositionChanged += LayoutPropertyChanged;
+            SizeChanged += LayoutPropertyChanged;
         }
-
-        private void Items_ItemAdded (object sender, ItemEventArgs<T> e)
+                
+        private void LayoutPropertyChanged (object sender, EventArgs e)
         {
-            var layoutControl = e.Item as ILayoutControl;
-            
-            if(layoutControl != null)
-                layoutControl.PerformLayout();
+            PerformLayout();
         }
 
         public EventList<T> Items { get; private set; }
@@ -68,8 +66,9 @@ namespace CraftworkGames.CraftworkGui.MonoGame
 
         protected Size GetSize(Control control)
         {
-            var width = control.Width + control.Margin.Left + control.Margin.Right;
-            var height = control.Height + control.Margin.Top + control.Margin.Bottom;
+            var desiredSize = control.DesiredSize;
+            var width = desiredSize.Width + control.Margin.Left + control.Margin.Right;
+            var height = desiredSize.Height + control.Margin.Top + control.Margin.Bottom;
             return new Size(width, height);
         }
 
